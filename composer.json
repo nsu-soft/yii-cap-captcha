@@ -1,0 +1,50 @@
+{
+    "name": "nsu-soft/yii-cap-captcha",
+    "description": "Interface for accessing a stand-alone server with Cap Captcha",
+    "keywords": [
+        "yii2",
+        "cap",
+        "captcha",
+        "security"
+    ],
+    "version": "0.1",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/nsu-soft/yii-cap-captcha/issues",
+        "source": "https://github.com/nsu-soft/yii-cap-captcha"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.3",
+        "yiisoft/yii2": "~2.0.50"
+    },
+    "require-dev": {
+        "codeception/codeception": "^5.3",
+        "codeception/module-asserts": "^3.3",
+        "codeception/module-yii2": "^2.0",
+        "codeception/module-phpbrowser": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "nsusoft\\captcha\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    }
+}
