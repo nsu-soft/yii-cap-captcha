@@ -10,4 +10,5 @@ modules:
     enabled:
         - Yii2:
             configFile: 'config/test.php'
+            entryScript: index-test.php
 step_decorators: ~

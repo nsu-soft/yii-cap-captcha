@@ -15,14 +15,14 @@ class Cap extends Component
     public mixed $client = null;
 
     /**
-     * @var string|null Site key.
+     * @var string Site key.
      */
-    public ?string $siteKey = null;
+    public string $siteKey = '';
 
     /**
-     * @var string|null Secret key.
+     * @var string Secret key.
      */
-    public ?string $secterKey = null;
+    public string $secretKey = '';
     
     /**
      * @inheritDoc
@@ -40,7 +40,7 @@ class Cap extends Component
      */
     private function initSiteKey(): void
     {
-        if (is_null($this->siteKey)) {
+        if (empty($this->siteKey)) {
             throw new InvalidConfigException("You should specify a site key before using this component.");
         }
     }
@@ -51,7 +51,7 @@ class Cap extends Component
      */
     private function initSecretKey(): void
     {
-        if (is_null($this->secterKey)) {
+        if (empty($this->secretKey)) {
             throw new InvalidConfigException("You should specify a secret key before using this component.");
         }
     }
