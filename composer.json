@@ -24,7 +24,12 @@
         "codeception/codeception": "^5.3",
         "codeception/module-asserts": "^3.3",
         "codeception/module-yii2": "^2.0",
-        "codeception/module-phpbrowser": "^4.0"
+        "yiisoft/yii2-httpclient": "^2.0",
+        "guzzlehttp/guzzle": "^7.10"
+    },
+    "suggest": {
+        "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way",
+        "psr/http-client-implementation": "Allows you to access the Cap Captcha API using third-party libraries that support the PSR standard"
     },
     "autoload": {
         "psr-4": {
