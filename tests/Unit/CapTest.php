@@ -3,10 +3,13 @@
 namespace Tests\Unit;
 
 use Codeception\Attribute\Depends;
+use GuzzleHttp\Client as GuzzleClient;
 use nsusoft\captcha\Cap;
+use Symfony\Component\HttpClient\HttpClient as SymfonyClient;
 use Tests\Support\UnitTester;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\httpclient\Client as YiiClient;
 
 class CapTest extends \Codeception\Test\Unit
 {
@@ -34,7 +37,7 @@ class CapTest extends \Codeception\Test\Unit
             'siteKey' => $captcha['siteKey'],
             'secretKey' => $captcha['secretKey'],
             'client' => [
-                'class' => \yii\httpclient\Client::class,
+                'class' => YiiClient::class,
             ],
         ];
 
@@ -53,9 +56,27 @@ class CapTest extends \Codeception\Test\Unit
             'siteKey' => $captcha['siteKey'],
             'secretKey' => $captcha['secretKey'],
             'client' => [
-
-                'class' => \GuzzleHttp\Client::class,
+                'class' => GuzzleClient::class,
             ],
+        ];
+
+        Yii::createObject($config);
+    }
+
+    #[Depends('testConfigurationFileExists')]
+    public function testCorrectSymfonyClientConfiguration()
+    {
+        $this->expectNotToPerformAssertions();
+
+        $captcha = $this->getCaptchaConfiguration();
+
+        $config = [
+            'class' => Cap::class,
+            'siteKey' => $captcha['siteKey'],
+            'secretKey' => $captcha['secretKey'],
+            'client' => function () {
+                return SymfonyClient::create();
+            },
         ];
 
         Yii::createObject($config);
@@ -73,7 +94,7 @@ class CapTest extends \Codeception\Test\Unit
             'class' => Cap::class,
             'secretKey' => $captcha['secretKey'],
             'client' => [
-                'class' => \yii\httpclient\Client::class,
+                'class' => YiiClient::class,
             ],
         ];
 
@@ -92,7 +113,7 @@ class CapTest extends \Codeception\Test\Unit
             'class' => Cap::class,
             'siteKey' => $captcha['siteKey'],
             'client' => [
-                'class' => \yii\httpclient\Client::class,
+                'class' => YiiClient::class,
             ],
         ];
 

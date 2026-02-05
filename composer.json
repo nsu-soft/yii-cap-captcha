@@ -25,7 +25,8 @@
         "codeception/module-asserts": "^3.3",
         "codeception/module-yii2": "^2.0",
         "yiisoft/yii2-httpclient": "^2.0",
-        "guzzlehttp/guzzle": "^7.10"
+        "guzzlehttp/guzzle": "^7.10",
+        "symfony/http-client": "^7.4"
     },
     "suggest": {
         "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way",
