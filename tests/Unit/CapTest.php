@@ -53,6 +53,7 @@ class CapTest extends \Codeception\Test\Unit
             'siteKey' => $captcha['siteKey'],
             'secretKey' => $captcha['secretKey'],
             'client' => [
+
                 'class' => \GuzzleHttp\Client::class,
             ],
         ];
