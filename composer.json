@@ -18,7 +18,8 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.3",
-        "yiisoft/yii2": "~2.0.50"
+        "yiisoft/yii2": "~2.0.50",
+        "psr/http-client": "^1.0"
     },
     "require-dev": {
         "codeception/codeception": "^5.3",
@@ -26,7 +27,8 @@
         "codeception/module-yii2": "^2.0",
         "yiisoft/yii2-httpclient": "^2.0",
         "guzzlehttp/guzzle": "^7.10",
-        "symfony/http-client": "^7.4"
+        "symfony/http-client": "^7.4",
+        "nyholm/psr7": "^1.8"
     },
     "suggest": {
         "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way",

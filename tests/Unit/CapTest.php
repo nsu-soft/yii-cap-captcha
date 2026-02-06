@@ -5,7 +5,8 @@ namespace Tests\Unit;
 use Codeception\Attribute\Depends;
 use GuzzleHttp\Client as GuzzleClient;
 use nsusoft\captcha\Cap;
-use Symfony\Component\HttpClient\HttpClient as SymfonyClient;
+use Psr\Http\Client\ClientInterface;
+use Symfony\Component\HttpClient\Psr18Client as SymfonyClient;
 use Tests\Support\UnitTester;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -21,20 +22,41 @@ class CapTest extends \Codeception\Test\Unit
 
     public function testConfigurationFileExists()
     {
-        $captchaFile = $this->getConfigurationFileName();
+        $captchaFile = $this->getConfigFileName();
         $this->assertFileExists($captchaFile, "Captcha configuration file doesn't exist.");
     }
 
     #[Depends('testConfigurationFileExists')]
-    public function testCorrectYiiHttpClientConfiguration()
+    public function testCorrectYiiClientConfiguration()
     {
         $this->expectNotToPerformAssertions();
+        Yii::createObject($this->getYiiClientConfig());
+    }
 
-        $captcha = $this->getCaptchaConfiguration();
+    #[Depends('testConfigurationFileExists')]
+    public function testCorrectGuzzleClientConfiguration()
+    {
+        $this->expectNotToPerformAssertions();
+        Yii::createObject($this->getGuzzleClientConfig());
+    }
+
+    #[Depends('testConfigurationFileExists')]
+    public function testCorrectSymfonyClientConfiguration()
+    {
+        $this->expectNotToPerformAssertions();
+        Yii::createObject($this->getSymfonyClientConfig());
+    }
+
+    #[Depends('testConfigurationFileExists')]
+    public function testEmptySiteKeyConfiguration()
+    {
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessageMatches('/site key/');
+
+        $captcha = $this->getCaptchaConfig();
 
         $config = [
             'class' => Cap::class,
-            'siteKey' => $captcha['siteKey'],
             'secretKey' => $captcha['secretKey'],
             'client' => [
                 'class' => YiiClient::class,
@@ -45,13 +67,97 @@ class CapTest extends \Codeception\Test\Unit
     }
 
     #[Depends('testConfigurationFileExists')]
-    public function testCorrectGuzzleClientConfiguration()
+    public function testEmptySecretKeyConfiguration()
     {
-        $this->expectNotToPerformAssertions();
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessageMatches('/secret key/');
 
-        $captcha = $this->getCaptchaConfiguration();
+        $captcha = $this->getCaptchaConfig();
 
         $config = [
+            'class' => Cap::class,
+            'siteKey' => $captcha['siteKey'],
+            'client' => [
+                'class' => YiiClient::class,
+            ],
+        ];
+
+        Yii::createObject($config);
+    }
+
+    #[Depends('testConfigurationFileExists')]
+    public function testEmptyClientConfiguration()
+    {
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessageMatches('/client/');
+
+        $captcha = $this->getCaptchaConfig();
+
+        $config = [
+            'class' => Cap::class,
+            'siteKey' => $captcha['siteKey'],
+            'secretKey' => $captcha['secretKey'],
+        ];
+
+        Yii::createObject($config);
+    }
+
+    #[Depends('testCorrectYiiClientConfiguration')]
+    public function testClientWithAdapter()
+    {
+        $component = Yii::createObject($this->getYiiClientConfig());
+        $this->assertInstanceOf(ClientInterface::class, $component->client);
+    }
+
+    #[Depends('testConfigurationFileExists')]
+    public function testNotPsrClientConfiguration()
+    {
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessageMatches('/Unknown/');
+
+        $captcha = $this->getCaptchaConfig();
+
+        $config = [
+            'class' => Cap::class,
+            'siteKey' => $captcha['siteKey'],
+            'secretKey' => $captcha['secretKey'],
+            'client' => function () {
+                return \Symfony\Component\HttpClient\HttpClient::create();
+            },
+        ];
+
+        Yii::createObject($config);
+    }
+
+    private function getConfigFileName(): string
+    {
+        return dirname(__FILE__, 3) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'captcha.php';
+    }
+
+    private function getCaptchaConfig(): array
+    {
+        return require $this->getConfigFileName();
+    }
+
+    private function getYiiClientConfig(): array
+    {
+        $captcha = $this->getCaptchaConfig();
+
+        return [
+            'class' => Cap::class,
+            'siteKey' => $captcha['siteKey'],
+            'secretKey' => $captcha['secretKey'],
+            'client' => [
+                'class' => YiiClient::class,
+            ],
+        ];
+    }
+
+    private function getGuzzleClientConfig(): array
+    {
+        $captcha = $this->getCaptchaConfig();
+
+        return [
             'class' => Cap::class,
             'siteKey' => $captcha['siteKey'],
             'secretKey' => $captcha['secretKey'],
@@ -59,91 +165,19 @@ class CapTest extends \Codeception\Test\Unit
                 'class' => GuzzleClient::class,
             ],
         ];
-
-        Yii::createObject($config);
     }
 
-    #[Depends('testConfigurationFileExists')]
-    public function testCorrectSymfonyClientConfiguration()
+    private function getSymfonyClientConfig(): array
     {
-        $this->expectNotToPerformAssertions();
+        $captcha = $this->getCaptchaConfig();
 
-        $captcha = $this->getCaptchaConfiguration();
-
-        $config = [
+        return [
             'class' => Cap::class,
             'siteKey' => $captcha['siteKey'],
             'secretKey' => $captcha['secretKey'],
             'client' => function () {
-                return SymfonyClient::create();
+                return new SymfonyClient();
             },
         ];
-
-        Yii::createObject($config);
-    }
-
-    #[Depends('testConfigurationFileExists')]
-    public function testIncorrectSiteKeyConfiguration()
-    {
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessageMatches('/site key/');
-
-        $captcha = $this->getCaptchaConfiguration();
-
-        $config = [
-            'class' => Cap::class,
-            'secretKey' => $captcha['secretKey'],
-            'client' => [
-                'class' => YiiClient::class,
-            ],
-        ];
-
-        Yii::createObject($config);
-    }
-
-    #[Depends('testConfigurationFileExists')]
-    public function testIncorrectSecretKeyConfiguration()
-    {
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessageMatches('/secret key/');
-
-        $captcha = $this->getCaptchaConfiguration();
-
-        $config = [
-            'class' => Cap::class,
-            'siteKey' => $captcha['siteKey'],
-            'client' => [
-                'class' => YiiClient::class,
-            ],
-        ];
-
-        Yii::createObject($config);
-    }
-
-    #[Depends('testConfigurationFileExists')]
-    public function testIncorrectClientConfiguration()
-    {
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessageMatches('/client/');
-
-        $captcha = $this->getCaptchaConfiguration();
-
-        $config = [
-            'class' => Cap::class,
-            'siteKey' => $captcha['siteKey'],
-            'secretKey' => $captcha['secretKey'],
-        ];
-
-        Yii::createObject($config);
-    }
-
-    private function getConfigurationFileName(): string
-    {
-        return dirname(__FILE__, 3) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'captcha.php';
-    }
-
-    private function getCaptchaConfiguration(): array
-    {
-        return require $this->getConfigurationFileName();
     }
 }

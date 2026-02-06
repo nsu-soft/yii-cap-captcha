@@ -3,6 +3,8 @@
 namespace nsusoft\captcha;
 
 use Closure;
+use nsusoft\captcha\adapters\ClientAdapterFactory;
+use Psr\Http\Client\ClientInterface;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -68,6 +70,10 @@ class Cap extends Component
 
         if (is_array($this->client) || $this->client instanceof Closure) {
             $this->client = Yii::createObject($this->client);
+        }
+
+        if (!($this->client instanceof ClientInterface)) {
+            $this->client = ClientAdapterFactory::wrap($this->client);
         }
     }
 }
