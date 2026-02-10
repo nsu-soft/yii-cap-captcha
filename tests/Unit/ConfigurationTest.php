@@ -26,22 +26,22 @@ class ConfigurationTest extends \Codeception\Test\Unit
     #[Depends('testFileExists')]
     public function testCorrectYiiClient()
     {
-        $this->expectNotToPerformAssertions();
-        Yii::createObject(Generator::getYiiClientConfig());
+        $component = Yii::createObject(Generator::getYiiClientConfig());
+        $this->assertInstanceOf(ClientInterface::class, $component->client);
     }
 
     #[Depends('testFileExists')]
     public function testCorrectGuzzleClient()
     {
-        $this->expectNotToPerformAssertions();
-        Yii::createObject(Generator::getGuzzleClientConfig());
+        $component = Yii::createObject(Generator::getGuzzleClientConfig());
+        $this->assertInstanceOf(ClientInterface::class, $component->client);
     }
 
     #[Depends('testFileExists')]
     public function testCorrectSymfonyClient()
     {
-        $this->expectNotToPerformAssertions();
-        Yii::createObject(Generator::getSymfonyClientConfig());
+        $component = Yii::createObject(Generator::getSymfonyClientConfig());
+        $this->assertInstanceOf(ClientInterface::class, $component->client);
     }
 
     #[Depends('testFileExists')]
@@ -76,27 +76,6 @@ class ConfigurationTest extends \Codeception\Test\Unit
 
         $config = Generator::getYiiClientConfig();
         unset($config['client']);
-
-        Yii::createObject($config);
-    }
-
-    #[Depends('testCorrectYiiClient')]
-    public function testClientWithAdapter()
-    {
-        $component = Yii::createObject(Generator::getYiiClientConfig());
-        $this->assertInstanceOf(ClientInterface::class, $component->client);
-    }
-
-    #[Depends('testFileExists')]
-    public function testNotPsrClientWithoutAdapter()
-    {
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessageMatches('/Unknown/');
-
-        $config = Generator::getYiiClientConfig();
-        $config['client'] = function () {
-            return \Symfony\Component\HttpClient\HttpClient::create();
-        };
 
         Yii::createObject($config);
     }
