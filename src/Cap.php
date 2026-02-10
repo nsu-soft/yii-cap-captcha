@@ -12,7 +12,7 @@ use yii\base\InvalidConfigException;
 class Cap extends Component
 {
     /**
-     * @var yii\httpclient\Client|Psr\Http\Client|Closure|array|null Client for HTTP connection.
+     * @var ClientInterface|Closure|array|null Client for HTTP connection.
      */
     public mixed $client = null;
 
