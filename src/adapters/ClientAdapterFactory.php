@@ -2,6 +2,7 @@
 
 namespace nsusoft\captcha\adapters;
 
+use nsusoft\captcha\adapters\yii;
 use Psr\Http\Client\ClientInterface;
 use yii\base\InvalidConfigException;
 
@@ -17,7 +18,7 @@ class ClientAdapterFactory
     public static function wrap(mixed $client): ClientInterface
     {
         if ('yii\httpclient\Client' === get_class($client)) {
-            return new YiiClientAdapter(['client' => $client]);
+            return new yii\ClientAdapter(['client' => $client]);
         }
 
         throw new InvalidConfigException("Unknown HTTP-client type.");

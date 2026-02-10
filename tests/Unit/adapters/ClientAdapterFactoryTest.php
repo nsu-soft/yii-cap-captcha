@@ -14,8 +14,12 @@ class ClientAdapterFactoryTest extends \Codeception\Test\Unit
     {
     }
 
-    // tests
-    public function testSomeFeature()
+    public function testYiiClientAdapter()
+    {
+        
+    }
+
+    public function testUnknownClientAdapter()
     {
 
     }

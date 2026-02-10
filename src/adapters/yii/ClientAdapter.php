@@ -1,6 +1,6 @@
 <?php
 
-namespace nsusoft\captcha\adapters;
+namespace nsusoft\captcha\adapters\yii;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use yii\base\Component;
 use yii\httpclient\Client;
 
-class YiiClientAdapter extends Component implements ClientInterface
+class ClientAdapter extends Component implements ClientInterface
 {
     /**
      * @var Client Yii HTTP client object.
