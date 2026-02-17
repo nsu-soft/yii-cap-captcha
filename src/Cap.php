@@ -76,4 +76,6 @@ class Cap extends Component
             $this->client = ClientAdapterFactory::wrap($this->client);
         }
     }
+
+    public function 
 }
