@@ -9,6 +9,11 @@ class Generator
         return __DIR__ . '/captcha.php';
     }
 
+    public static function getCaptchaCredentials(): array
+    {
+        return require self::getCaptchaCredentialsFile();
+    }
+
     public static function getYiiClientConfig(): array
     {
         return require __DIR__ . '/yii.php';

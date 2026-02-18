@@ -2,7 +2,7 @@
 
 namespace nsusoft\captcha\integrations\cap\server\keys;
 
-class Keys
+class KeysGroup
 {
     /**
      * @see http://localhost:3000/swagger#tag/keys/GET/server/keys

@@ -2,7 +2,7 @@
 
 namespace nsusoft\captcha\integrations\cap;
 
-class Main
+class MainGroup
 {
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/challenge

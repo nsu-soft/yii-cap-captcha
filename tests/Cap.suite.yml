@@ -1,0 +1,6 @@
+actor: CapTester
+suite_namespace: Tests\Cap
+modules:
+    enabled:
+        - Asserts
+step_decorators: ~

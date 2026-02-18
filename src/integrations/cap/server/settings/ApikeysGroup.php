@@ -2,7 +2,7 @@
 
 namespace nsusoft\captcha\integrations\cap\server\settings;
 
-class Apikeys
+class ApikeysGroup
 {
     /**
      * @see http://localhost:3000/swagger#tag/settings/GET/server/settings/apikeys

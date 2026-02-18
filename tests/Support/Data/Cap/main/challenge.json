@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+        "challenge": {
+            "type": "object",
+            "properties": {
+                "c": { "type": "number" },
+                "s": { "type": "number" },
+                "d": { "type": "number" }
+            }
+        },
+        "token": {
+            "type": "string",
+            "minLength": 50,
+            "maxLength": 50
+        },
+        "expires": {
+            "type": "number"
+        }
+    }
+}

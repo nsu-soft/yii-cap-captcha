@@ -17,6 +17,16 @@ class Cap extends Component
     public mixed $client = null;
 
     /**
+     * @var string URL of Cap Captcha server.
+     */
+    public string $server = 'http://localhost';
+
+    /**
+     * @var int Port of Cap Captcha server.
+     */
+    public int $port = 3000;
+
+    /**
      * @var string Site key.
      */
     public string $siteKey = '';
@@ -76,6 +86,4 @@ class Cap extends Component
             $this->client = ClientAdapterFactory::wrap($this->client);
         }
     }
-
-    public function 
 }

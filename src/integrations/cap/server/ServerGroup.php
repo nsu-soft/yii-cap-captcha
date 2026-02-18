@@ -2,7 +2,7 @@
 
 namespace nsusoft\captcha\integrations\cap\server;
 
-class Server
+class ServerGroup
 {
     /**
      * @see http://localhost:3000/swagger#GET/server/about
