@@ -23,17 +23,11 @@ class MainGroupTest extends \Codeception\Test\Unit
         ]);
     }
 
-    /**
-     * @dataProvider endpointsData
-     */
-    public function testEndpointResponseSuccess(
-        string $method,
-        string $endpoint, 
-        string $schema)
+    public function testChallengeSuccess()
     {
         $config = Generator::getCaptchaCredentials();
     
-        $response = $this->client->request($method, "/{$config['siteKey']}/{$endpoint}");
+        $response = $this->client->post("/{$config['siteKey']}/challenge");
         $this->assertEquals(200, $response->getStatusCode(), 'Incorrect status code.');
 
         $body = $response->getBody();
@@ -42,29 +36,55 @@ class MainGroupTest extends \Codeception\Test\Unit
         $json = json_decode($body);
 
         $validator = new Validator();
-        $validator->validate($json, Schema::getSchema($schema));
+        $validator->validate($json, Schema::getSchema('/main/challenge.200'));
 
         $this->assertTrue($validator->isValid(), 'Incorrect JSON schema.');
     }
 
-    /**
-     * @dataProvider endpointsData
-     */
-    public function testEndpointResponseFailed(
-        string $method,
-        string $endpoint, 
-        string $schema)
+    public function testChallengeFailed()
     {
         $this->expectException(ClientException::class);
-        $this->client->request('POST', "/incorrect-site-key/{$endpoint}");
+        $this->client->post("/incorrect-site-key/challenge");
     }
 
-    public static function endpointsData(): array
+    public function testRedeemAvailable()
     {
-        return [
-            'challenge' => ['POST', 'challenge', '/main/challenge'],
-            // 'redeem' => ['POST', 'redeem', '/main/redeem'],
-            // 'siteverify' => ['POST', 'siteverify', '/main/siteverify'],
-        ];
+        $config = Generator::getCaptchaCredentials();
+
+        $response = $this->client->post("/{$config['siteKey']}/challenge");
+        $json = json_decode($response->getBody());
+
+        try {
+            $this->client->post("/{$config['siteKey']}/redeem", [
+                'form_params' => [
+                    'token' => $json->token,
+                    'solutions' => ['invalid-solution'],
+                ],
+            ]);
+
+            $this->fail();
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+            $this->assertEquals(403, $response->getStatusCode(), 'Incorrect status code.');
+        }
+    }
+
+    public function testSiteverifyAvailable()
+    {
+        $config = Generator::getCaptchaCredentials();
+
+        try {
+            $this->client->post("/{$config['siteKey']}/siteverify", [
+                'form_params' => [
+                    'secret' => $config['secretKey'],
+                    'response' => 'invalid-token',
+                ],
+            ]);
+
+            $this->fail();
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+            $this->assertEquals(404, $response->getStatusCode(), 'Incorrect status code.');
+        }
     }
 }
