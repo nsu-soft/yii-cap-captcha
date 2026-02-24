@@ -14,20 +14,22 @@ class MainGroupTest extends \Codeception\Test\Unit
 {
     protected CapTester $tester;
 
+    protected array $config = [];
+
     protected ?Client $client = null;
 
     protected function _before()
     {
+        $this->config = Generator::getCaptchaCredentials();
+
         $this->client = new Client([
-            'base_uri' => 'http://cap:3000',
+            'base_uri' => "{$this->config['server']}:{$this->config['port']}",
         ]);
     }
 
     public function testChallengeSuccess()
     {
-        $config = Generator::getCaptchaCredentials();
-    
-        $response = $this->client->post("/{$config['siteKey']}/challenge");
+        $response = $this->client->post("/{$this->config['siteKey']}/challenge");
         $this->assertEquals(200, $response->getStatusCode(), 'Incorrect status code.');
 
         $body = $response->getBody();
@@ -49,13 +51,11 @@ class MainGroupTest extends \Codeception\Test\Unit
 
     public function testRedeemAvailable()
     {
-        $config = Generator::getCaptchaCredentials();
-
-        $response = $this->client->post("/{$config['siteKey']}/challenge");
+        $response = $this->client->post("/{$this->config['siteKey']}/challenge");
         $json = json_decode($response->getBody());
 
         try {
-            $this->client->post("/{$config['siteKey']}/redeem", [
+            $this->client->post("/{$this->config['siteKey']}/redeem", [
                 'form_params' => [
                     'token' => $json->token,
                     'solutions' => ['invalid-solution'],
@@ -71,12 +71,10 @@ class MainGroupTest extends \Codeception\Test\Unit
 
     public function testSiteverifyAvailable()
     {
-        $config = Generator::getCaptchaCredentials();
-
         try {
-            $this->client->post("/{$config['siteKey']}/siteverify", [
+            $this->client->post("/{$this->config['siteKey']}/siteverify", [
                 'form_params' => [
-                    'secret' => $config['secretKey'],
+                    'secret' => $this->config['secretKey'],
                     'response' => 'invalid-token',
                 ],
             ]);

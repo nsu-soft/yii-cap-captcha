@@ -1,0 +1,11 @@
+{
+    "type": "object",
+    "properties": {
+        "bun": {
+            "type": "string"
+        },
+        "ver": {
+            "type": "string"
+        }
+    }
+}

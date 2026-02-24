@@ -15,7 +15,7 @@ class ServerGroup
     /**
      * @see http://localhost:3000/swagger#tag/settings/POST/server/logout
      */
-    public function logout()
+    public function logout(string $session)
     {
 
     }

@@ -6,4 +6,7 @@
 return [
     'siteKey' => '',
     'secretKey' => '',
+    'apiKey' => '',
+    'server' => '',
+    'port' => '',
 ];

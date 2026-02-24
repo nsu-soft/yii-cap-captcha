@@ -22,9 +22,9 @@ class Cap extends Component
     public string $server = 'http://localhost';
 
     /**
-     * @var int Port of Cap Captcha server.
+     * @var int|null Port of Cap Captcha server.
      */
-    public int $port = 3000;
+    public ?int $port = 3000;
 
     /**
      * @var string Site key.
