@@ -1,0 +1,68 @@
+{
+    "type": "object",
+    "properties": {
+        "key": {
+            "type": "object",
+            "properties": {
+                "siteKey": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 10
+                },
+                "name": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "number"
+                },
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "difficulty": {
+                            "type": "number"
+                        },
+                        "challengeCount": {
+                            "type": "number"
+                        },
+                        "saltSize": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        },
+        "stats": {
+            "type": "object",
+            "properties": {
+                "solvesLast24h": {
+                    "type": "number"
+                }
+            }
+        },
+        "chartData": {
+            "type": "object",
+            "properties": {
+                "duration": {
+                    "type": "string"
+                },
+                "bucketSize": {
+                    "type": "number"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "bucket": {
+                                "type": "number"
+                            },
+                            "count": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

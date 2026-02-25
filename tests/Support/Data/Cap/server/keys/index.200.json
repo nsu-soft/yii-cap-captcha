@@ -1,0 +1,33 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "siteKey": {
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 10
+            },
+            "name": {
+                "type": "string"
+            },
+            "created": {
+                "type": "number"
+            },
+            "solvesLast24h": {
+                "type": "number"
+            },
+            "difference": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string"
+                    },
+                    "direction": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
