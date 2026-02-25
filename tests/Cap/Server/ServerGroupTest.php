@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Cap\server;
+namespace Tests\Cap\Server;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

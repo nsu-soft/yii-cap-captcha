@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Cap\server\keys;
+namespace Tests\Cap\Server\Keys;
 
 use GuzzleHttp\Client;
 use JsonSchema\Validator;
