@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "apiKey": {
+            "type": "string",
+            "maxLength": 80
+        }
+    }
+}

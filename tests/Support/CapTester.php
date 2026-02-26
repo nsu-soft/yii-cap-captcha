@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use JsonSchema\Validator;
+
 /**
  * Inherited Methods
  * @method void wantTo($text)
@@ -26,4 +28,25 @@ class CapTester extends \Codeception\Actor
     /**
      * Define custom actions here
      */
+
+    /**
+     * Checks JSON schema.
+     * @param object|array $schema
+     * @param mixed $json
+     */
+    public function assertJsonSchema(object $schema, object|array $json, string $message = '')
+    {
+        $validator = new Validator();
+        $validator->validate($json, $schema);
+
+        $this->assertTrue(
+            $validator->isValid(),
+            empty($message) ? $this->getValidatorError($validator) : $message
+        );
+    }
+
+    protected function getValidatorError(Validator $validator): string
+    {
+        return 'Incorrect JSON schema...' . PHP_EOL . print_r($validator->getErrors(), true);
+    }
 }

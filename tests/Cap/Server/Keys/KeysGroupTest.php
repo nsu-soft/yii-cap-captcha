@@ -4,7 +4,6 @@
 namespace Tests\Cap\Server\Keys;
 
 use GuzzleHttp\Client;
-use JsonSchema\Validator;
 use Tests\Support\CapTester;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
@@ -43,12 +42,10 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $body = $response->getBody();
         $this->assertJson($body, 'Server response is not a JSON.');
 
-        $json = json_decode($body);
-
-        $validator = new Validator();
-        $validator->validate($json, Schema::getSchema('/server/keys/index.200'));
-
-        $this->assertTrue($validator->isValid(), $this->getValidatorError($validator));
+        $this->tester->assertJsonSchema(
+            Schema::getSchema('/server/keys/index.200'),
+            json_decode($body)
+        );
     }
 
     public function testCreate()
@@ -68,10 +65,7 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $key = json_decode($body);
 
         try {
-            $validator = new Validator();
-            $validator->validate($key, Schema::getSchema('/server/keys/post.200'));
-
-            $this->assertTrue($validator->isValid(), $this->getValidatorError($validator));
+            $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/post.200'), $key);
         } finally {
             // destruct
             $this->deleteKey($key);
@@ -93,13 +87,11 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $body = $response->getBody();
         $this->assertJson($body, 'Server response is not a JSON.');
 
-        $json = json_decode($body);
-
         try {
-            $validator = new Validator();
-            $validator->validate($json, Schema::getSchema('/server/keys/get.200'));
-
-            $this->assertTrue($validator->isValid(), $this->getValidatorError($validator));
+            $this->tester->assertJsonSchema(
+                Schema::getSchema('/server/keys/get.200'),
+                json_decode($body)
+            );
         } finally {
             // destruct
             $this->deleteKey($key);
@@ -121,12 +113,10 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $body = $response->getBody();
         $this->assertJson($body, 'Server response is not a JSON.');
 
-        $json = json_decode($body);
-
-        $validator = new Validator();
-        $validator->validate($json, Schema::getSchema('/server/keys/delete.200'));
-
-        $this->assertTrue($validator->isValid(), $this->getValidatorError($validator));
+        $this->tester->assertJsonSchema(
+            Schema::getSchema('/server/keys/delete.200'),
+            json_decode($body)
+        );
     }
 
     public function testConfig()
@@ -150,12 +140,10 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $body = $response->getBody();
         $this->assertJson($body, 'Server response is not a JSON.');
 
-        $json = json_decode($body);
-
-        $validator = new Validator();
-        $validator->validate($json, Schema::getSchema('/server/keys/config.200'));
-
-        $this->assertTrue($validator->isValid(), $this->getValidatorError($validator));
+        $this->tester->assertJsonSchema(
+            Schema::getSchema('/server/keys/config.200'),
+            json_decode($body)
+        );
 
         // destruct
         $this->deleteKey($key);
@@ -176,12 +164,10 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $body = $response->getBody();
         $this->assertJson($body, 'Server response is not a JSON.');
 
-        $json = json_decode($body);
-
-        $validator = new Validator();
-        $validator->validate($json, Schema::getSchema('/server/keys/rotate-secret.200'));
-
-        $this->assertTrue($validator->isValid(), $this->getValidatorError($validator));
+        $this->tester->assertJsonSchema(
+            Schema::getSchema('/server/keys/rotate-secret.200'),
+            json_decode($body)
+        );
 
         // destruct
         $this->deleteKey($key);
@@ -204,10 +190,5 @@ class KeysGroupTest extends \Codeception\Test\Unit
         $this->client->delete("/server/keys/{$key->siteKey}", [
             'headers' => $this->headers,
         ]);
-    }
-
-    protected function getValidatorError(Validator $validator): string
-    {
-        return 'Incorrect JSON schema...' . PHP_EOL . print_r($validator->getErrors(), true);
     }
 }

@@ -1,0 +1,17 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "id": {
+                "type": "string"
+            },
+            "created": {
+                "created": "string"
+            }
+        }
+    }
+}
