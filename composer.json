@@ -19,7 +19,10 @@
     "require": {
         "php": ">=8.3",
         "yiisoft/yii2": "~2.0.50",
-        "psr/http-client": "^1.0"
+        "psr/http-client": "^1.0",
+        "php-http/discovery": "^1.20",
+        "psr/http-client-implementation": "*",
+        "psr/http-factory-implementation": "*"
     },
     "require-dev": {
         "codeception/codeception": "^5.3",
@@ -32,8 +35,7 @@
         "justinrainbow/json-schema": "^6.7"
     },
     "suggest": {
-        "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way",
-        "psr/http-client-implementation": "Allows you to access the Cap Captcha API using third-party libraries that support the PSR standard"
+        "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way"
     },
     "autoload": {
         "psr-4": {
@@ -53,7 +55,8 @@
     ],
     "config": {
         "allow-plugins": {
-            "yiisoft/yii2-composer": true
+            "yiisoft/yii2-composer": true,
+            "php-http/discovery": false
         }
     }
 }

@@ -14,18 +14,8 @@ class Generator
         return require self::getCaptchaCredentialsFile();
     }
 
-    public static function getYiiClientConfig(): array
+    public static function getConfig(): array
     {
-        return require __DIR__ . '/yii.php';
-    }
-
-    public static function getGuzzleClientConfig(): array
-    {
-        return require __DIR__ . '/guzzle.php';
-    }
-
-    public static function getSymfonyClientConfig(): array
-    {
-        return require __DIR__ . '/symfony.php';
+        return require __DIR__ . '/config.php';
     }
 }
