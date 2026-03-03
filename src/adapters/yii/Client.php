@@ -2,12 +2,11 @@
 
 namespace nsusoft\captcha\adapters\yii;
 
-use nsusoft\captcha\psr\http\message\Request;
+use Http\Discovery\Psr17Factory;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use yii\httpclient\Client as YiiClient;
 
 class Client implements RequestFactoryInterface, ClientInterface
 {
@@ -16,7 +15,7 @@ class Client implements RequestFactoryInterface, ClientInterface
      */
     public function createRequest(string $method, $uri): RequestInterface
     {
-        return (new Request())->withMethod($method)->withUri($uri);
+        return (new Psr17Factory())->createRequest($method, $uri);
     }
 
     /**
@@ -24,8 +23,7 @@ class Client implements RequestFactoryInterface, ClientInterface
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
-        $client = new YiiClient();
-
-        // TODO: send request
+        $response = RequestAdapter::toYii($request)->send();
+        return ResponseAdapter::toPsr($response);
     }
 }
