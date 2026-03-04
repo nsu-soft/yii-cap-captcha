@@ -21,9 +21,16 @@ class ResponseAdapter
             ->withBody($factory->createStream($response->getContent()));
 
         foreach ($response->getHeaders() as $name => $value) {
-            $psr = $psr->withHeader($name, $value);
+            if (!in_array($name, self::ignoredHeaders())) {
+                $psr = $psr->withHeader($name, $value);
+            }
         }
 
         return $psr;
+    }
+
+    private static function ignoredHeaders(): array
+    {
+        return ['http-code'];
     }
 }
