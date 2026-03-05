@@ -3,4 +3,5 @@ suite_namespace: Tests\Cap
 modules:
     enabled:
         - Asserts
+        - \Tests\Support\Helper\JsonSchemaHelper
 step_decorators: ~

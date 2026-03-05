@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use JsonSchema\Validator;
+
 /**
  * Inherited Methods
  * @method void wantTo($text)
