@@ -44,7 +44,7 @@ class KeysTest extends \Codeception\Test\Unit
 
         $this->tester->assertJsonSchema(
             Schema::getSchema('/server/keys/index.200'),
-            json_decode($body)
+            json_decode($body, true)
         );
     }
 
