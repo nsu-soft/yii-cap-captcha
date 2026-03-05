@@ -44,7 +44,7 @@ class Keys extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/keys/GET/server/keys/{siteKey}
      */
-    public function view(string $siteKey)
+    public function view(string $siteKey): object
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}");
         
@@ -59,7 +59,7 @@ class Keys extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/keys/DELETE/server/keys/{siteKey}
      */
-    public function delete(string $siteKey)
+    public function delete(string $siteKey): object
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}");
         
@@ -74,7 +74,7 @@ class Keys extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/keys/PUT/server/keys/{siteKey}/config
      */
-    public function config(string $siteKey, $options = [])
+    public function config(string $siteKey, $options = []): object
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}/config");
         $stream = $this->factory->createStream(Json::encode($options));
@@ -92,7 +92,7 @@ class Keys extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/keys/POST/server/keys/{siteKey}/rotate-secret
      */
-    public function rotateSecret(string $siteKey)
+    public function rotateSecret(string $siteKey): object
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}/rotate-secret");
         
