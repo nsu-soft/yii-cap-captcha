@@ -1,8 +1,8 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\server\settings;
+namespace nsusoft\captcha\integrations\cap\api\server\settings;
 
-class SettingsGroup
+class Settings
 {
     /**
      * @see http://localhost:3000/swagger#tag/settings/GET/server/settings/sessions

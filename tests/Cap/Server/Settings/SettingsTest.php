@@ -8,7 +8,7 @@ use Tests\Support\CapTester;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 
-class SettingsGroupTest extends \Codeception\Test\Unit
+class SettingsTest extends \Codeception\Test\Unit
 {
     protected CapTester $tester;
 

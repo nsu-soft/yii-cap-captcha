@@ -31,6 +31,8 @@ class Cap extends Component
      * @var string API key.
      */
     public string $apiKey = '';
+
+    // private CapApi $api = null;
     
     /**
      * @inheritDoc

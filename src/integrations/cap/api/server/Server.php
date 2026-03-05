@@ -1,8 +1,8 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\server;
+namespace nsusoft\captcha\integrations\cap\api\server;
 
-class ServerGroup
+class Server
 {
     /**
      * @see http://localhost:3000/swagger#GET/server/about

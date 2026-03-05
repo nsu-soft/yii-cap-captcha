@@ -16,6 +16,11 @@ class ClientTest extends \Codeception\Test\Unit
     {
     }
 
+    public function testSendRequest()
+    {
+        $this->markTestIncomplete();
+    }
+
     public function testСreateRequest()
     {
         $client = new Client();
@@ -24,5 +29,40 @@ class ClientTest extends \Codeception\Test\Unit
         $this->assertInstanceOf(RequestInterface::class, $request);
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals('/test', $request->getUri());
+    }
+
+    public function testCreateResponse()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCreateServerRequest()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCreateStream()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCreateStreamFromFile()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCreateStreamFromResource()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCreateUploadedFile()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testCreateUri()
+    {
+        $this->markTestIncomplete();
     }
 }

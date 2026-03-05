@@ -8,7 +8,7 @@ use Tests\Support\CapTester;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 
-class ApikeysGroupTest extends \Codeception\Test\Unit
+class ApikeysTest extends \Codeception\Test\Unit
 {
     const API_KEY_NAME = 'api-key-name';
 

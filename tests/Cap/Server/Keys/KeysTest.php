@@ -8,7 +8,7 @@ use Tests\Support\CapTester;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 
-class KeysGroupTest extends \Codeception\Test\Unit
+class KeysTest extends \Codeception\Test\Unit
 {
     const SITE_KEY_NAME = 'site-key-name';
 

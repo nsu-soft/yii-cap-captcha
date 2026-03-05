@@ -10,7 +10,7 @@ use Tests\Support\CapTester;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 
-class ServerGroupTest extends \Codeception\Test\Unit
+class ServerTest extends \Codeception\Test\Unit
 {
     const IRRELEVANT_TOKEN = 'eyJ0b2tlbiI6IjJkMTc4MDcwYzRiYWFkNzZlNjc1MDQ3ODE0MzNhNDE3NjkwYzEyN2IxNTM4NTI0YWJjYmExNjI1OTczYyIsImhhc2giOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MixwPTEkM3F5VnVJRm9oMm44Y280bVlyZmY0ZGVsOEU2QlRQc1l0a3cwZXp6QWtEZyR6VGJtS1lub054blA3eG9qUlMwVmJjMlhlS1RVcjRyYlN6bjFoRERaZ2VvIn0=';
 

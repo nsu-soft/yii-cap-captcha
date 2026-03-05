@@ -10,7 +10,7 @@ use Tests\Support\CapTester;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 
-class MainGroupTest extends \Codeception\Test\Unit
+class MainTest extends \Codeception\Test\Unit
 {
     protected CapTester $tester;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap;
+namespace nsusoft\captcha\integrations\cap\api;
 
-class MainGroup
+class Main
 {
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/challenge

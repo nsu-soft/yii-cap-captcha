@@ -1,15 +1,27 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\server\keys;
+namespace nsusoft\captcha\integrations\cap\api\server\keys;
 
-class KeysGroup
+use nsusoft\captcha\factories\ClientFactory;
+use nsusoft\captcha\integrations\cap\api\AbstractApi;
+use nsusoft\captcha\integrations\cap\formatters\JsonFormatter;
+
+class Keys extends AbstractApi
 {
     /**
      * @see http://localhost:3000/swagger#tag/keys/GET/server/keys
      */
     public function index()
     {
+        $client = ClientFactory::create();
+        $uri = $client->createUri("{$this->server}:{$this->port}/server/keys");
 
+        $request = $client->createRequest('GET', $uri)
+            ->withHeader('Authorization', "Bot {$this->apiKey}");
+
+        $response = $client->sendRequest($request);
+
+        return JsonFormatter::fromResponse($response);
     }
 
     /**
