@@ -26,7 +26,7 @@ class Apikeys extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/settings/POST/server/settings/apikeys
      */
-    public function create(string $name)
+    public function create(string $name): object
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/settings/apikeys");
         $stream = $this->factory->createStream(Json::encode(['name' => $name]));
@@ -44,7 +44,7 @@ class Apikeys extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/settings/DELETE/server/settings/apikeys/{id}
      */
-    public function delete(string $id)
+    public function delete(string $id): object
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/settings/apikeys/{$id}");
         
