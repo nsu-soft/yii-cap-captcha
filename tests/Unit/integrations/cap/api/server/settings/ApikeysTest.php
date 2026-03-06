@@ -49,7 +49,7 @@ class ApikeysTest extends \Codeception\Test\Unit
         $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.post.200'), $key);
 
         // destruct
-        $this->deleteLastKey(self::API_KEY_NAME);
+        $this->api->deleteLast(self::API_KEY_NAME);
     }
 
     public function testDelete()
@@ -65,7 +65,13 @@ class ApikeysTest extends \Codeception\Test\Unit
 
     public function testDeleteLast()
     {
-        $this->markTestIncomplete();
+        // construct
+        $key = $this->createKey();
+
+        // test
+        $response = $this->api->deleteLast($key->name);
+
+        $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.delete.200'), $response);
     }
 
     protected function createKey(): object
@@ -85,28 +91,5 @@ class ApikeysTest extends \Codeception\Test\Unit
         $createdKey->created = $lastKey->created;
 
         return $createdKey;
-    }
-
-    protected function deleteLastKey(string $name): void
-    {
-        $keys = $this->api->index();
-
-        if (empty($keys)) {
-            return;
-        }
-
-        $lastKey = null;
-
-        foreach ($keys as $key) {
-            if ($name == $key->name && (is_null($lastKey) || $lastKey->created < $key->created)) {
-                $lastKey = $key;
-            }
-        }
-
-        if (is_null($lastKey)) {
-            return;
-        }
-
-        $this->api->delete($lastKey->id);
     }
 }

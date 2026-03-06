@@ -69,6 +69,36 @@ class Apikeys extends AbstractApi
      */
     public function deleteLast(string $name): stdClass
     {
-        // TODO: implement
+        $keys = $this->index();
+
+        if (empty($keys)) {
+            return $this->generateResponseDeletingSuccess();
+        }
+
+        $lastKey = null;
+
+        foreach ($keys as $key) {
+            if ($name == $key->name && (is_null($lastKey) || $lastKey->created < $key->created)) {
+                $lastKey = $key;
+            }
+        }
+
+        if (is_null($lastKey)) {
+            return $this->generateResponseDeletingSuccess();
+        }
+
+        return $this->delete($lastKey->id);
+    }
+
+    /**
+     * Generates a response for success deleting API key.
+     * @return stdClass
+     */
+    private function generateResponseDeletingSuccess(): stdClass
+    {
+        $response = new stdClass();
+        $response->success = true;
+        
+        return $response;
     }
 }
