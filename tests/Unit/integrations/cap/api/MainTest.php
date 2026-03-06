@@ -4,7 +4,6 @@
 namespace Tests\Unit\integrations\cap\api;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\Main;
 use Tests\Support\Data\Cap\Schema;
