@@ -5,7 +5,6 @@ namespace nsusoft\captcha;
 use nsusoft\captcha\integrations\cap\builders\ApiBuilder;
 use stdClass;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
 
 class Cap extends Component
 {
@@ -37,38 +36,14 @@ class Cap extends Component
     /**
      * @var stdClass API 
      */
-    private stdClass $api = null;
+    private stdClass $api;
     
     /**
      * @inheritDoc
      */
     public function init(): void
     {
-        $this->initSiteKey();
-        $this->initSecretKey();
         $this->initApi();
-    }
-
-    /**
-     * Initialize site key.
-     * @return void
-     */
-    private function initSiteKey(): void
-    {
-        if (is_null($this->siteKey)) {
-            throw new InvalidConfigException("You should specify a site key before using this component.");
-        }
-    }
-
-    /**
-     * Initialize secret key.
-     * @return void
-     */
-    private function initSecretKey(): void
-    {
-        if (is_null($this->secretKey)) {
-            throw new InvalidConfigException("You should specify a secret key before using this component.");
-        }
     }
 
     /**

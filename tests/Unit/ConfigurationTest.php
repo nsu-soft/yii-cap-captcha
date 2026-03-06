@@ -3,10 +3,10 @@
 namespace Tests\Unit;
 
 use Codeception\Attribute\Depends;
+use Error;
 use Tests\Support\Data\Config\Generator;
 use Tests\Support\UnitTester;
 use Yii;
-use yii\base\InvalidConfigException;
 
 class ConfigurationTest extends \Codeception\Test\Unit
 {
@@ -25,8 +25,8 @@ class ConfigurationTest extends \Codeception\Test\Unit
     #[Depends('testFileExists')]
     public function testEmptySiteKey()
     {
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessageMatches('/site key/');
+        $this->expectException(Error::class);
+        $this->expectExceptionMessageMatches('/must not be accessed before initialization/');
 
         $config = Generator::getConfig();
         unset($config['siteKey']);
@@ -37,8 +37,8 @@ class ConfigurationTest extends \Codeception\Test\Unit
     #[Depends('testFileExists')]
     public function testEmptySecretKey()
     {
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessageMatches('/secret key/');
+        $this->expectException(Error::class);
+        $this->expectExceptionMessageMatches('/must not be accessed before initialization/');
 
         $config = Generator::getConfig();
         unset($config['secretKey']);
