@@ -56,7 +56,7 @@ class MainTest extends \Codeception\Test\Unit
 
         try {
             $this->client->post("/{$this->config['siteKey']}/redeem", [
-                'form_params' => [
+                'json' => [
                     'token' => $json->token,
                     'solutions' => ['invalid-solution'],
                 ],
