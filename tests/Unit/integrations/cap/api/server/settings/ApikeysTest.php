@@ -23,11 +23,11 @@ class ApikeysTest extends \Codeception\Test\Unit
         $config = Generator::getCaptchaCredentials();
 
         $this->api = new Apikeys([
+            'server' => $config['server'],
+            'port' => $config['port'],
             'siteKey' => $config['siteKey'],
             'secretKey' => $config['secretKey'],
             'apiKey' => $config['apiKey'],
-            'server' => $config['server'],
-            'port' => $config['port'],
             'factory' => new HttpFactory(),
             'client' => new Client(),
         ]);
@@ -61,6 +61,11 @@ class ApikeysTest extends \Codeception\Test\Unit
         $response = $this->api->delete($key->id);
 
         $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.delete.200'), $response);
+    }
+
+    public function testDeleteLast()
+    {
+        $this->markTestIncomplete();
     }
 
     protected function createKey(): object
