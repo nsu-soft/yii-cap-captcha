@@ -3,14 +3,17 @@
 namespace nsusoft\captcha\integrations\cap\api;
 
 use nsusoft\captcha\integrations\cap\formatters\JsonFormatter;
+use stdClass;
 use yii\helpers\Json;
 
 class Main extends AbstractApi
 {
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/challenge
+     * @param string $siteKey
+     * @return stdClass
      */
-    public function challenge(string $siteKey): object
+    public function challenge(string $siteKey): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/{$siteKey}/challenge");
         
@@ -22,8 +25,11 @@ class Main extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/redeem
+     * @param string $siteKey
+     * @param array $data
+     * @return stdClass
      */
-    public function redeem(string $siteKey, array $data): object
+    public function redeem(string $siteKey, array $data): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/{$siteKey}/redeem");
         $stream = $this->factory->createStream(Json::encode($data));
@@ -39,8 +45,11 @@ class Main extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/siteverify
+     * @param string $siteKey
+     * @param array $data
+     * @return stdClass
      */
-    public function siteverify(string $siteKey, array $data): object
+    public function siteverify(string $siteKey, array $data): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/{$siteKey}/siteverify");
         $stream = $this->factory->createStream(Json::encode($data));

@@ -9,6 +9,7 @@ class Settings extends AbstractApi
 {
     /**
      * @see http://localhost:3000/swagger#tag/settings/GET/server/settings/sessions
+     * @return array
      */
     public function sessions(): array
     {

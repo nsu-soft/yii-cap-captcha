@@ -4,12 +4,14 @@ namespace nsusoft\captcha\integrations\cap\api\server\keys;
 
 use nsusoft\captcha\integrations\cap\api\AbstractApi;
 use nsusoft\captcha\integrations\cap\formatters\JsonFormatter;
+use stdClass;
 use yii\helpers\Json;
 
 class Keys extends AbstractApi
 {
     /**
      * @see http://localhost:3000/swagger#tag/keys/GET/server/keys
+     * @return array
      */
     public function index(): array
     {
@@ -25,8 +27,10 @@ class Keys extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/keys/POST/server/keys
+     * @param string $name
+     * @return stdClass
      */
-    public function create(string $name): object
+    public function create(string $name): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys");
         $stream = $this->factory->createStream(Json::encode(['name' => $name]));
@@ -43,8 +47,10 @@ class Keys extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/keys/GET/server/keys/{siteKey}
+     * @param string $siteKey
+     * @return stdClass
      */
-    public function view(string $siteKey): object
+    public function view(string $siteKey): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}");
         
@@ -58,8 +64,10 @@ class Keys extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/keys/DELETE/server/keys/{siteKey}
+     * @param string $siteKey
+     * @return stdClass
      */
-    public function delete(string $siteKey): object
+    public function delete(string $siteKey): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}");
         
@@ -73,8 +81,11 @@ class Keys extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/keys/PUT/server/keys/{siteKey}/config
+     * @param string $siteKey
+     * @param array $options
+     * @return stdClass
      */
-    public function config(string $siteKey, $options = []): object
+    public function config(string $siteKey, array $options = []): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}/config");
         $stream = $this->factory->createStream(Json::encode($options));
@@ -91,8 +102,10 @@ class Keys extends AbstractApi
 
     /**
      * @see http://localhost:3000/swagger#tag/keys/POST/server/keys/{siteKey}/rotate-secret
+     * @param string $siteKey
+     * @return stdClass
      */
-    public function rotateSecret(string $siteKey): object
+    public function rotateSecret(string $siteKey): stdClass
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}/rotate-secret");
         
