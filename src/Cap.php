@@ -90,7 +90,7 @@ class Cap extends Component
      * @param array $data
      * @return stdClass
      */
-    public function siteverify(string $siteKey, array $data): stdClass
+    public function siteVerify(string $siteKey, array $data): stdClass
     {
         return $this->api->main->siteverify($siteKey, $data);
     }
