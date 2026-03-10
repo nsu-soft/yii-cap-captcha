@@ -60,7 +60,17 @@ class Cap extends Component
             'port' => $this->port,
         ]);
 
-        $this->api = $builder->build();
+        $this->setApi($builder->build());
+    }
+
+    /**
+     * Sets an API object.
+     * @param stdClass $api
+     * @return void
+     */
+    public function setApi(stdClass $api): void
+    {
+        $this->api = $api;
     }
 
     /**
