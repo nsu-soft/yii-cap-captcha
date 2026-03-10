@@ -10,7 +10,7 @@
                 "type": "string"
             },
             "created": {
-                "created": "string"
+                "type": "string"
             }
         }
     }

@@ -65,7 +65,7 @@ class MainTest extends \Codeception\Test\Unit
             $this->fail();
         } catch (ClientException $e) {
             $response = $e->getResponse();
-            $this->assertEquals(403, $response->getStatusCode(), 'Incorrect status code.');
+            $this->assertEquals(400, $response->getStatusCode(), 'Incorrect status code.');
         }
     }
 

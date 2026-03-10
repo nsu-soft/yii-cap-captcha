@@ -3,6 +3,7 @@
 
 namespace Tests\Unit\integrations\cap\api\server\settings;
 
+use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\server\settings\Apikeys;
@@ -13,6 +14,7 @@ use Tests\Support\UnitTester;
 class ApikeysTest extends \Codeception\Test\Unit
 {
     const API_KEY_NAME = 'api-key-name';
+    const API_KEY_ID = 'api-key-id';
 
     protected UnitTester $tester;
 
@@ -35,6 +37,14 @@ class ApikeysTest extends \Codeception\Test\Unit
 
     public function testIndex()
     {
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/settings/apikeys.index.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
         $keys = $this->api->index();
 
         $this->assertIsArray($keys);
@@ -43,22 +53,31 @@ class ApikeysTest extends \Codeception\Test\Unit
 
     public function testCreate()
     {
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/settings/apikeys.post.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
         $key = $this->api->create(self::API_KEY_NAME);
 
         $this->assertIsObject($key);
         $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.post.200'), $key);
-
-        // destruct
-        $this->api->deleteLast(self::API_KEY_NAME);
     }
 
     public function testDelete()
     {
         // construct
-        $key = $this->createKey();
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/settings/apikeys.delete.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
 
         // test
-        $response = $this->api->delete($key->id);
+        $response = $this->api->delete(self::API_KEY_ID);
 
         $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.delete.200'), $response);
     }
@@ -66,30 +85,18 @@ class ApikeysTest extends \Codeception\Test\Unit
     public function testDeleteLast()
     {
         // construct
-        $key = $this->createKey();
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Stub::consecutive(
+                Schema::generateResponse('/server/settings/apikeys.index.200', new HttpFactory()),
+                Schema::generateResponse('/server/settings/apikeys.delete.200', new HttpFactory())
+            ),
+        ]);
+
+        $this->api->setClient($client);
 
         // test
-        $response = $this->api->deleteLast($key->name);
+        $response = $this->api->deleteLast(self::API_KEY_NAME);
 
         $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.delete.200'), $response);
-    }
-
-    protected function createKey(): object
-    {
-        $createdKey = $this->api->create(self::API_KEY_NAME);
-        $keys = $this->api->index();
-        $lastKey = null;
-
-        foreach ($keys as $key) {
-            if (self::API_KEY_NAME == $key->name && (is_null($lastKey) || $lastKey->created < $key->created)) {
-                $lastKey = $key;
-            }
-        }
-
-        $createdKey->name = $lastKey->name;
-        $createdKey->id = $lastKey->id;
-        $createdKey->created = $lastKey->created;
-
-        return $createdKey;
     }
 }
