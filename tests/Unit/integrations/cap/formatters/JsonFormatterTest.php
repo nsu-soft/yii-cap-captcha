@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\formatters;
+namespace Tests\Unit\integrations\cap\formatters;
 
 use nsusoft\captcha\integrations\cap\formatters\JsonFormatter;
 use Nyholm\Psr7\Factory\Psr17Factory;

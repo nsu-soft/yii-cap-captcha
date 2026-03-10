@@ -9,7 +9,6 @@ use Tests\Support\UnitTester;
 
 class ApiBuilderTest extends \Codeception\Test\Unit
 {
-
     protected UnitTester $tester;
 
     protected ?ApiBuilder $builder = null;

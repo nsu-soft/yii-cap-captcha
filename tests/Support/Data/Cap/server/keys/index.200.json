@@ -28,8 +28,8 @@
                     }
                 },
                 "required": ["value", "direction"]
-            },
-            "required": ["siteKey", "name", "created", "solvesLast24h", "difference"]
-        }
+            }
+        },
+        "required": ["siteKey", "name", "created", "solvesLast24h", "difference"]
     }
 }
