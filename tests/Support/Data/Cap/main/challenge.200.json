@@ -7,7 +7,8 @@
                 "c": { "type": "number" },
                 "s": { "type": "number" },
                 "d": { "type": "number" }
-            }
+            },
+            "required": ["c", "s", "d"]
         },
         "token": {
             "type": "string",
@@ -17,5 +18,6 @@
         "expires": {
             "type": "number"
         }
-    }
+    },
+    "required": ["challenge", "token", "expires"]
 }

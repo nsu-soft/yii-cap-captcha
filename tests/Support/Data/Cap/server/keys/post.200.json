@@ -10,5 +10,6 @@
             "type": "string",
             "maxLength": 60
         }
-    }
+    },
+    "required": ["siteKey", "secretKey"]
 }

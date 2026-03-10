@@ -27,9 +27,11 @@
                         "saltSize": {
                             "type": "number"
                         }
-                    }
+                    },
+                    "required": ["difficulty", "challengeCount", "saltSize"]
                 }
-            }
+            },
+            "required": ["siteKey", "name", "created", "config"]
         },
         "stats": {
             "type": "object",
@@ -37,7 +39,8 @@
                 "solvesLast24h": {
                     "type": "number"
                 }
-            }
+            },
+            "required": ["solvesLast24h"]
         },
         "chartData": {
             "type": "object",
@@ -59,10 +62,13 @@
                             "count": {
                                 "type": "number"
                             }
-                        }
+                        },
+                        "required": ["bucket", "count"]
                     }
                 }
-            }
+            },
+            "required": ["duration", "bucketSize", "data"]
         }
-    }
+    },
+    "required": ["key", "stats", "chartData"]
 }

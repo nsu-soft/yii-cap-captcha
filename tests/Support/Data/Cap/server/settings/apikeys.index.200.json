@@ -12,6 +12,7 @@
             "created": {
                 "type": "string"
             }
-        }
+        },
+        "required": ["name", "id", "created"]
     }
 }
