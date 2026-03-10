@@ -40,6 +40,20 @@ class Schema
     }
 
     /**
+     * Generates fake response with specified JSON schema.
+     * @param string $fileName
+     * @param ResponseFactoryInterface|StreamFactoryInterface $factory
+     * @return ResponseInterface
+     */
+    public static function generateResponseEmpty(
+        ResponseFactoryInterface|StreamFactoryInterface $factory
+    ): ResponseInterface
+    {
+        $stream = $factory->createStream('');
+        return $factory->createResponse()->withBody($stream);
+    }
+
+    /**
      * Gets absolute file path with JSON schema.
      * @param string $fileName
      * @return string

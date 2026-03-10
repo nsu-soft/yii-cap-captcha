@@ -13,6 +13,8 @@ use Tests\Support\UnitTester;
 
 class ServerTest extends \Codeception\Test\Unit
 {
+    const SESSION = 'session';
+
     protected UnitTester $tester;
 
     protected ?Server $api = null;
@@ -50,6 +52,16 @@ class ServerTest extends \Codeception\Test\Unit
 
     public function testLogout()
     {
-        $this->markTestIncomplete();
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponseEmpty(new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+        
+        // test
+        $response = $this->api->logout(self::SESSION);
+
+        $this->assertNull($response);
     }
 }

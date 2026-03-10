@@ -28,9 +28,9 @@ class Server extends AbstractApi
     /**
      * @see http://localhost:3000/swagger#tag/settings/POST/server/logout
      * @param string $session
-     * @return stdClass
+     * @return null
      */
-    public function logout(string $session): stdClass
+    public function logout(string $session): null
     {
         $uri = $this->factory->createUri("{$this->getBaseUri()}/server/logout");
         $stream = $this->factory->createStream(Json::encode(['session' => $session]));

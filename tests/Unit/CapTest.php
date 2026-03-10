@@ -62,7 +62,7 @@ class CapTest extends \Codeception\Test\Unit
     public function testLogout()
     {
         $response = $this->component->logout(self::SESSION);
-        $this->assertInstanceOf(stdClass::class, $response);
+        $this->assertNull($response);
     }
 
     public function testGetKeys()
@@ -144,7 +144,7 @@ class CapTest extends \Codeception\Test\Unit
                 
         $api->server->main = Stub::make(Server::class, [
             'about' => new stdClass(),
-            'logout' => new stdClass(),
+            'logout' => null,
         ]);
         
         $api->server->keys->main = Stub::make(Keys::class, [

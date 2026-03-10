@@ -117,9 +117,9 @@ class Cap extends Component
     /**
      * @see http://localhost:3000/swagger#tag/settings/POST/server/logout
      * @param string $session
-     * @return stdClass
+     * @return null
      */
-    public function logout(string $session): stdClass
+    public function logout(string $session): null
     {
         return $this->api->server->main->logout($session);
     }
