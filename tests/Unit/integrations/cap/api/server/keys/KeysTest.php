@@ -3,6 +3,7 @@
 
 namespace Tests\Unit\integrations\cap\api\server\keys;
 
+use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\server\keys\Keys;
@@ -13,6 +14,7 @@ use Tests\Support\UnitTester;
 class KeysTest extends \Codeception\Test\Unit
 {
     const SITE_KEY_NAME = 'site-key-name';
+    const SITE_KEY = 'a123456789';
 
     protected UnitTester $tester;
 
@@ -35,6 +37,14 @@ class KeysTest extends \Codeception\Test\Unit
 
     public function testIndex()
     {
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/keys/index.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
         $keys = $this->api->index();
 
         $this->assertIsArray($keys);
@@ -43,38 +53,47 @@ class KeysTest extends \Codeception\Test\Unit
 
     public function testCreate()
     {
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/keys/post.200', new HttpFactory()),
+        ]);
+        
+        $this->api->setClient($client);
+
         // test
-        $key = $this->createKey();
+        $key = $this->api->create(self::SITE_KEY_NAME);
 
         $this->assertIsObject($key);
         $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/post.200'), $key);
-
-        // destruct
-        $this->deleteKey($key);
     }
 
     public function testView()
     {
         // construct
-        $key = $this->createKey();
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/keys/get.200', new HttpFactory()),
+        ]);
+        
+        $this->api->setClient($client);
 
         // test
-        $response = $this->api->view($key->siteKey);
+        $response = $this->api->view(self::SITE_KEY);
 
         $this->assertIsObject($response);
         $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/get.200'), $response);
-
-        // destruct
-        $this->deleteKey($key);
     }
 
     public function testDelete()
     {
         // construct
-        $key = $this->createKey();
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/keys/delete.200', new HttpFactory()),
+        ]);
+        
+        $this->api->setClient($client);
 
         // test
-        $response = $this->deleteKey($key);
+        $response = $this->api->delete(self::SITE_KEY);
 
         $this->assertIsObject($response);
         $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/delete.200'), $response);
@@ -83,10 +102,14 @@ class KeysTest extends \Codeception\Test\Unit
     public function testConfig()
     {
         // construct
-        $key = $this->createKey();
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/keys/config.200', new HttpFactory()),
+        ]);
+        
+        $this->api->setClient($client);
 
         // test
-        $response = $this->api->config($key->siteKey, [
+        $response = $this->api->config(self::SITE_KEY, [
             'challengeCount' => 10,
             'difficulty' => 5,
             'name' => 'new-' . self::SITE_KEY_NAME,
@@ -95,33 +118,21 @@ class KeysTest extends \Codeception\Test\Unit
 
         $this->assertIsObject($response);
         $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/config.200'), $response);
-
-        // destruct
-        $this->deleteKey($key);
     }
 
     public function testRotateSecret()
     {
         // construct
-        $key = $this->createKey();
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/server/keys/rotate-secret.200', new HttpFactory()),
+        ]);
+        
+        $this->api->setClient($client);
 
         // test
-        $response = $this->api->rotateSecret($key->siteKey);
+        $response = $this->api->rotateSecret(self::SITE_KEY);
 
         $this->assertIsObject($response);
         $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/rotate-secret.200'), $response);
-
-        // destruct
-        $this->deleteKey($key);
-    }
-
-    protected function createKey(): object
-    {
-        return $this->api->create(self::SITE_KEY_NAME);
-    }
-
-    protected function deleteKey(object $key): object
-    {
-        return $this->api->delete($key->siteKey);
     }
 }

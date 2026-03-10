@@ -32,7 +32,8 @@
         "guzzlehttp/guzzle": "^7.10",
         "symfony/http-client": "^7.4",
         "nyholm/psr7": "^1.8",
-        "justinrainbow/json-schema": "^6.7"
+        "justinrainbow/json-schema": "^6.7",
+        "koriym/json-schema-faker": "^0.3.1"
     },
     "suggest": {
         "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way"
