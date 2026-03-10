@@ -11,8 +11,8 @@
         },
         "token": {
             "type": "string",
-            "minLength": 50,
-            "maxLength": 50
+            "minLength": 236,
+            "maxLength": 236
         },
         "expires": {
             "type": "number"
