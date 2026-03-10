@@ -3,6 +3,7 @@
 
 namespace Tests\Unit\integrations\cap\api;
 
+use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\Main;
@@ -35,6 +36,14 @@ class MainTest extends \Codeception\Test\Unit
 
     public function testChallenge()
     {
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/main/challenge.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
         $response = $this->api->challenge($this->config['siteKey']);
 
         $this->assertIsObject($response);
@@ -43,15 +52,35 @@ class MainTest extends \Codeception\Test\Unit
 
     public function testRedeem()
     {
-        $this->markTestIncomplete();
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/main/redeem.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
+        $response = $this->api->redeem($this->config['siteKey'], [
+            'token' => 'token',
+            'solutions' => ['solution'],
+        ]);
+
+        $this->assertIsObject($response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/main/redeem.200'), $response);
     }
 
     public function testRedeemForbidden()
     {
-        $challenge = $this->api->challenge($this->config['siteKey']);
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/main/redeem.403', new HttpFactory()),
+        ]);
 
+        $this->api->setClient($client);
+
+        // test
         $response = $this->api->redeem($this->config['siteKey'], [
-            'token' => $challenge->token,
+            'token' => 'invalid-token',
             'solutions' => ['invalid-solution'],
         ]);
 
@@ -61,11 +90,33 @@ class MainTest extends \Codeception\Test\Unit
 
     public function testSiteverify()
     {
-        $this->markTestIncomplete();
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/main/siteverify.200', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
+        $response = $this->api->siteverify($this->config['siteKey'], [
+            'secret' => $this->config['secretKey'],
+            'response' => 'token',
+        ]);
+
+        $this->assertIsObject($response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/main/siteverify.200'), $response);
     }
 
     public function testSiteverifyNotFound()
     {
+        // construct
+        $client = Stub::make(Client::class, [
+            'sendRequest' => Schema::generateResponse('/main/siteverify.404', new HttpFactory()),
+        ]);
+
+        $this->api->setClient($client);
+
+        // test
         $response = $this->api->siteverify($this->config['siteKey'], [
             'secret' => $this->config['secretKey'],
             'response' => 'invalid-token',

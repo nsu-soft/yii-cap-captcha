@@ -41,6 +41,7 @@ class ServerTest extends \Codeception\Test\Unit
 
         $this->api->setClient($client);
         
+        // test
         $response = $this->api->about();
 
         $this->assertIsObject($response);

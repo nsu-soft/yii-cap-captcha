@@ -41,6 +41,7 @@ class SettingsTest extends \Codeception\Test\Unit
 
         $this->api->setClient($client);
     
+        // test
         $sessions = $this->api->sessions();
 
         $this->assertIsArray($sessions);
