@@ -4,7 +4,7 @@ services:
     volumes:
       - .:/var/www/html
   cap:
-    image: tiago2/cap:2.1.4
+    image: tiago2/cap:2.2.1
     environment:
       ADMIN_KEY: j9c8TClJJror0Wki
     ports:
