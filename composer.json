@@ -40,7 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "nsusoft\\captcha\\": "src/"
+            "NsuSoft\\Captcha\\": "src/"
         }
     },
     "autoload-dev": {

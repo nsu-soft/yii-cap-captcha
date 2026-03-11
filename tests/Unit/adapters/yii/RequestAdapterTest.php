@@ -3,7 +3,7 @@
 
 namespace Tests\Unit\adapters\yii;
 
-use nsusoft\captcha\adapters\yii\RequestAdapter;
+use NsuSoft\Captcha\Adapters\Yii\RequestAdapter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\Support\UnitTester;
 use yii\web\HeaderCollection;

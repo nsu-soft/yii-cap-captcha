@@ -1,6 +1,6 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\formatters;
+namespace NsuSoft\Captcha\Integrations\Cap\Formatters;
 
 use Psr\Http\Message\ResponseInterface;
 use stdClass;

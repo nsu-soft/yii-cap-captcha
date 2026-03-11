@@ -3,7 +3,7 @@
 
 namespace Tests\Unit\adapters\yii;
 
-use nsusoft\captcha\adapters\yii\HeadersAdapter;
+use NsuSoft\Captcha\Adapters\Yii\HeadersAdapter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\Support\UnitTester;
 

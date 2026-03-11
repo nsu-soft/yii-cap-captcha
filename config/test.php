@@ -1,6 +1,6 @@
 <?php
 
-use nsusoft\captcha\Cap;
+use NsuSoft\Captcha\Cap;
 use yii\helpers\ArrayHelper;
 
 $captcha = require __DIR__ . '/captcha.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace nsusoft\captcha\adapters\yii;
+namespace NsuSoft\Captcha\Adapters\Yii;
 
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;

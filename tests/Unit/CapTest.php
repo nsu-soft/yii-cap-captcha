@@ -3,13 +3,13 @@
 
 namespace Tests\Unit;
 
-use nsusoft\captcha\Cap;
-use nsusoft\captcha\integrations\cap\api\Main;
-use nsusoft\captcha\integrations\cap\api\server\keys\Keys;
-use nsusoft\captcha\integrations\cap\api\server\Server;
-use nsusoft\captcha\integrations\cap\api\server\settings\Apikeys;
-use nsusoft\captcha\integrations\cap\api\server\settings\Settings;
-use nsusoft\captcha\integrations\cap\builders\ApiBuilder;
+use NsuSoft\Captcha\Cap;
+use NsuSoft\Captcha\Integrations\Cap\Api\Main;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Keys\Keys;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Server;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Settings\Apikeys;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Settings\Settings;
+use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
 use stdClass;
 use Tests\Support\Data\Config\Generator;
 use Tests\Support\UnitTester;

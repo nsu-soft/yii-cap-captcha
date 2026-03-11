@@ -1,8 +1,8 @@
 <?php
 
-namespace nsusoft\captcha;
+namespace NsuSoft\Captcha;
 
-use nsusoft\captcha\integrations\cap\builders\ApiBuilder;
+use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
 use stdClass;
 use yii\base\Component;
 

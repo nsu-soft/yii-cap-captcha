@@ -1,10 +1,10 @@
 <?php
 
-namespace nsusoft\captcha\factories;
+namespace NsuSoft\Captcha\Factories;
 
 use Http\Discovery\Psr17Factory;
 use Http\Discovery\Psr18Client;
-use nsusoft\captcha\adapters\yii;
+use NsuSoft\Captcha\Adapters\Yii;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;

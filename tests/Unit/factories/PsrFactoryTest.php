@@ -3,7 +3,7 @@
 
 namespace Tests\Unit\factories;
 
-use nsusoft\captcha\factories\PsrFactory;
+use NsuSoft\Captcha\Factories\PsrFactory;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;

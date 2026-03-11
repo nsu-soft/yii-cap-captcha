@@ -3,7 +3,7 @@
 
 namespace Tests\Unit\integrations\cap\formatters;
 
-use nsusoft\captcha\integrations\cap\formatters\JsonFormatter;
+use NsuSoft\Captcha\Integrations\Cap\Formatters\JsonFormatter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\Support\UnitTester;
 use yii\base\InvalidArgumentException;

@@ -5,7 +5,7 @@ namespace Tests\Unit\integrations\cap\api\server\keys;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
-use nsusoft\captcha\integrations\cap\api\server\keys\Keys;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Keys\Keys;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 use Tests\Support\UnitTester;

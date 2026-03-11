@@ -1,13 +1,13 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\builders;
+namespace NsuSoft\Captcha\Integrations\Cap\Builders;
 
-use nsusoft\captcha\factories\PsrFactory;
-use nsusoft\captcha\integrations\cap\api\Main;
-use nsusoft\captcha\integrations\cap\api\server\keys\Keys;
-use nsusoft\captcha\integrations\cap\api\server\Server;
-use nsusoft\captcha\integrations\cap\api\server\settings\Apikeys;
-use nsusoft\captcha\integrations\cap\api\server\settings\Settings;
+use NsuSoft\Captcha\Factories\PsrFactory;
+use NsuSoft\Captcha\Integrations\Cap\Api\Main;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Keys\Keys;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Server;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Settings\Apikeys;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Settings\Settings;
 use stdClass;
 use yii\base\Component;
 

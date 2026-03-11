@@ -1,9 +1,9 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\api\server\keys;
+namespace NsuSoft\Captcha\Integrations\Cap\Api\Server\Keys;
 
-use nsusoft\captcha\integrations\cap\api\AbstractApi;
-use nsusoft\captcha\integrations\cap\formatters\JsonFormatter;
+use NsuSoft\Captcha\Integrations\Cap\Api\AbstractApi;
+use NsuSoft\Captcha\Integrations\Cap\Formatters\JsonFormatter;
 use stdClass;
 use yii\helpers\Json;
 

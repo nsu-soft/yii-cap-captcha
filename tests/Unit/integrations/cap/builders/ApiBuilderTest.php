@@ -3,7 +3,7 @@
 
 namespace Tests\Unit\integrations\cap\builders;
 
-use nsusoft\captcha\integrations\cap\builders\ApiBuilder;
+use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
 use Tests\Support\Data\Config\Generator;
 use Tests\Support\UnitTester;
 

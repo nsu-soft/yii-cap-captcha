@@ -1,6 +1,6 @@
 <?php
 
-namespace nsusoft\captcha\adapters\yii;
+namespace NsuSoft\Captcha\Adapters\Yii;
 
 use Psr\Http\Message\ResponseInterface;
 use yii\httpclient\Response;

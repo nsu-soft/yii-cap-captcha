@@ -3,7 +3,7 @@
 
 namespace Tests\Unit\adapters\yii;
 
-use nsusoft\captcha\adapters\yii\ResponseAdapter;
+use NsuSoft\Captcha\Adapters\Yii\ResponseAdapter;
 use Tests\Support\UnitTester;
 use yii\httpclient\Client;
 

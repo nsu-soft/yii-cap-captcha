@@ -6,7 +6,7 @@ namespace Tests\Unit\integrations\cap\api\server\settings;
 use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
-use nsusoft\captcha\integrations\cap\api\server\settings\Apikeys;
+use NsuSoft\Captcha\Integrations\Cap\Api\Server\Settings\Apikeys;
 use Tests\Support\Data\Cap\Schema;
 use Tests\Support\Data\Config\Generator;
 use Tests\Support\UnitTester;

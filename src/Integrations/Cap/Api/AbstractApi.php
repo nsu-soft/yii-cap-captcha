@@ -1,6 +1,6 @@
 <?php
 
-namespace nsusoft\captcha\integrations\cap\api;
+namespace NsuSoft\Captcha\Integrations\Cap\Api;
 
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;

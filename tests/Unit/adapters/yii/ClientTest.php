@@ -3,8 +3,8 @@
 
 namespace Tests\Unit\adapters\yii;
 
-use nsusoft\captcha\adapters\yii\Client;
-use nsusoft\captcha\adapters\yii\RequestAdapter;
+use NsuSoft\Captcha\Adapters\Yii\Client;
+use NsuSoft\Captcha\Adapters\Yii\RequestAdapter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Support\UnitTester;
