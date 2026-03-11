@@ -3,7 +3,6 @@
 
 namespace Tests\Unit\integrations\cap\api\server\keys;
 
-use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\server\keys\Keys;
@@ -38,7 +37,7 @@ class KeysTest extends \Codeception\Test\Unit
     public function testIndex()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/keys/index.200', new HttpFactory()),
         ]);
 
@@ -54,7 +53,7 @@ class KeysTest extends \Codeception\Test\Unit
     public function testCreate()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/keys/post.200', new HttpFactory()),
         ]);
         
@@ -70,7 +69,7 @@ class KeysTest extends \Codeception\Test\Unit
     public function testView()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/keys/get.200', new HttpFactory()),
         ]);
         
@@ -86,7 +85,7 @@ class KeysTest extends \Codeception\Test\Unit
     public function testDelete()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/keys/delete.200', new HttpFactory()),
         ]);
         
@@ -102,7 +101,7 @@ class KeysTest extends \Codeception\Test\Unit
     public function testConfig()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/keys/config.200', new HttpFactory()),
         ]);
         
@@ -123,7 +122,7 @@ class KeysTest extends \Codeception\Test\Unit
     public function testRotateSecret()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/keys/rotate-secret.200', new HttpFactory()),
         ]);
         

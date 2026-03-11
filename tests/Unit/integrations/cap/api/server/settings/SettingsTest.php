@@ -3,7 +3,6 @@
 
 namespace Tests\Unit\integrations\cap\api\server\settings;
 
-use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\server\settings\Settings;
@@ -35,7 +34,7 @@ class SettingsTest extends \Codeception\Test\Unit
     public function testSessions()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/settings/sessions.200', new HttpFactory()),
         ]);
 

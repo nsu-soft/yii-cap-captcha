@@ -38,7 +38,7 @@ class ApikeysTest extends \Codeception\Test\Unit
     public function testIndex()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/settings/apikeys.index.200', new HttpFactory()),
         ]);
 
@@ -54,7 +54,7 @@ class ApikeysTest extends \Codeception\Test\Unit
     public function testCreate()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/settings/apikeys.post.200', new HttpFactory()),
         ]);
 
@@ -70,7 +70,7 @@ class ApikeysTest extends \Codeception\Test\Unit
     public function testDelete()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/settings/apikeys.delete.200', new HttpFactory()),
         ]);
 
@@ -85,7 +85,7 @@ class ApikeysTest extends \Codeception\Test\Unit
     public function testDeleteLast()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Stub::consecutive(
                 Schema::generateResponse('/server/settings/apikeys.index.200', new HttpFactory()),
                 Schema::generateResponse('/server/settings/apikeys.delete.200', new HttpFactory())

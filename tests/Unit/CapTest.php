@@ -3,7 +3,6 @@
 
 namespace Tests\Unit;
 
-use Codeception\Stub;
 use nsusoft\captcha\Cap;
 use nsusoft\captcha\integrations\cap\api\Main;
 use nsusoft\captcha\integrations\cap\api\server\keys\Keys;
@@ -136,18 +135,18 @@ class CapTest extends \Codeception\Test\Unit
         $builder = new ApiBuilder(['server' => '']);
         $api = $builder->build();
 
-        $api->main = Stub::make(Main::class, [
+        $api->main = $this->make(Main::class, [
             'challenge' => new stdClass(),
             'redeem' => new stdClass(),
             'siteverify' => new stdClass(),
         ]);
                 
-        $api->server->main = Stub::make(Server::class, [
+        $api->server->main = $this->make(Server::class, [
             'about' => new stdClass(),
             'logout' => null,
         ]);
         
-        $api->server->keys->main = Stub::make(Keys::class, [
+        $api->server->keys->main = $this->make(Keys::class, [
             'index' => [],
             'create' => new stdClass(),
             'view' => new stdClass(),
@@ -156,11 +155,11 @@ class CapTest extends \Codeception\Test\Unit
             'rotateSecret' => new stdClass(),
         ]);
 
-        $api->server->settings->main = Stub::make(Settings::class, [
+        $api->server->settings->main = $this->make(Settings::class, [
             'sessions' => [],
         ]);
 
-        $api->server->settings->apikeys = Stub::make(Apikeys::class, [
+        $api->server->settings->apikeys = $this->make(Apikeys::class, [
             'index' => [],
             'create' => new stdClass(),
             'delete' => new stdClass(),

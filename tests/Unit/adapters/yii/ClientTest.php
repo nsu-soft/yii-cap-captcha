@@ -3,7 +3,6 @@
 
 namespace Tests\Unit\adapters\yii;
 
-use Codeception\Stub;
 use nsusoft\captcha\adapters\yii\Client;
 use nsusoft\captcha\adapters\yii\RequestAdapter;
 use Nyholm\Psr7\Factory\Psr17Factory;
@@ -25,8 +24,8 @@ class ClientTest extends \Codeception\Test\Unit
 
     public function testSendRequest()
     {
-        $requestAdapter = Stub::make(RequestAdapter::class, [
-            'toYii' => Stub::make(Request::class, [
+        $requestAdapter = $this->make(RequestAdapter::class, [
+            'toYii' => $this->make(Request::class, [
                 'send' => (new YiiClient())->createResponse('', ['http-code' => 200]),
             ]),
         ]);

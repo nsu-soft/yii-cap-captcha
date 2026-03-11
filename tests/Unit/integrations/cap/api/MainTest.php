@@ -3,7 +3,6 @@
 
 namespace Tests\Unit\integrations\cap\api;
 
-use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\Main;
@@ -37,7 +36,7 @@ class MainTest extends \Codeception\Test\Unit
     public function testChallenge()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/main/challenge.200', new HttpFactory()),
         ]);
 
@@ -53,7 +52,7 @@ class MainTest extends \Codeception\Test\Unit
     public function testRedeem()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/main/redeem.200', new HttpFactory()),
         ]);
 
@@ -72,7 +71,7 @@ class MainTest extends \Codeception\Test\Unit
     public function testRedeemForbidden()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/main/redeem.403', new HttpFactory()),
         ]);
 
@@ -91,7 +90,7 @@ class MainTest extends \Codeception\Test\Unit
     public function testSiteverify()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/main/siteverify.200', new HttpFactory()),
         ]);
 
@@ -110,7 +109,7 @@ class MainTest extends \Codeception\Test\Unit
     public function testSiteverifyNotFound()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/main/siteverify.404', new HttpFactory()),
         ]);
 

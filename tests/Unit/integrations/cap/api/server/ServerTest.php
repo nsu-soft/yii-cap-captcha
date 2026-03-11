@@ -3,7 +3,6 @@
 
 namespace Tests\Unit\integrations\cap\api\server;
 
-use Codeception\Stub;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
 use nsusoft\captcha\integrations\cap\api\server\Server;
@@ -37,7 +36,7 @@ class ServerTest extends \Codeception\Test\Unit
     public function testAbout()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponse('/server/about.200', new HttpFactory()),
         ]);
 
@@ -53,7 +52,7 @@ class ServerTest extends \Codeception\Test\Unit
     public function testLogout()
     {
         // construct
-        $client = Stub::make(Client::class, [
+        $client = $this->make(Client::class, [
             'sendRequest' => Schema::generateResponseEmpty(new HttpFactory()),
         ]);
 
