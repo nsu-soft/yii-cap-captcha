@@ -37,7 +37,7 @@ class MainTest extends \Codeception\Test\Unit
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/main/challenge.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Main/challenge.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -46,14 +46,14 @@ class MainTest extends \Codeception\Test\Unit
         $response = $this->api->challenge($this->config['siteKey']);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/main/challenge.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Main/challenge.200'), $response);
     }
 
     public function testRedeem()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/main/redeem.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Main/redeem.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -65,14 +65,14 @@ class MainTest extends \Codeception\Test\Unit
         ]);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/main/redeem.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Main/redeem.200'), $response);
     }
 
     public function testRedeemForbidden()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/main/redeem.403', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Main/redeem.403', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -84,14 +84,14 @@ class MainTest extends \Codeception\Test\Unit
         ]);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/main/redeem.403'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Main/redeem.403'), $response);
     }
 
     public function testSiteverify()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/main/siteverify.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Main/siteverify.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -103,14 +103,14 @@ class MainTest extends \Codeception\Test\Unit
         ]);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/main/siteverify.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Main/siteverify.200'), $response);
     }
 
     public function testSiteverifyNotFound()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/main/siteverify.404', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Main/siteverify.404', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -122,6 +122,6 @@ class MainTest extends \Codeception\Test\Unit
         ]);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/main/siteverify.404'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Main/siteverify.404'), $response);
     }
 }

@@ -47,7 +47,7 @@ class ServerTest extends \Codeception\Test\Unit
         $json = json_decode($body);
 
         $validator = new Validator();
-        $validator->validate($json, Schema::getSchema('/server/about.200'));
+        $validator->validate($json, Schema::getSchema('/Server/about.200'));
 
         $this->assertTrue($validator->isValid(), 'Incorrect JSON schema.');
     }

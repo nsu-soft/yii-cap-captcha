@@ -43,7 +43,7 @@ class KeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/keys/index.200'),
+            Schema::getSchema('/Server/Keys/index.200'),
             json_decode($body)
         );
     }
@@ -65,7 +65,7 @@ class KeysTest extends \Codeception\Test\Unit
         $key = json_decode($body);
 
         try {
-            $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/post.200'), $key);
+            $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/post.200'), $key);
         } finally {
             // destruct
             $this->deleteKey($key);
@@ -89,7 +89,7 @@ class KeysTest extends \Codeception\Test\Unit
 
         try {
             $this->tester->assertJsonSchema(
-                Schema::getSchema('/server/keys/get.200'),
+                Schema::getSchema('/Server/Keys/get.200'),
                 json_decode($body)
             );
         } finally {
@@ -114,7 +114,7 @@ class KeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/keys/delete.200'),
+            Schema::getSchema('/Server/Keys/delete.200'),
             json_decode($body)
         );
     }
@@ -141,7 +141,7 @@ class KeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/keys/config.200'),
+            Schema::getSchema('/Server/Keys/config.200'),
             json_decode($body)
         );
 
@@ -165,7 +165,7 @@ class KeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/keys/rotate-secret.200'),
+            Schema::getSchema('/Server/Keys/rotate-secret.200'),
             json_decode($body)
         );
 

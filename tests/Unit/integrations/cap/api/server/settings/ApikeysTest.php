@@ -39,7 +39,7 @@ class ApikeysTest extends \Codeception\Test\Unit
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/settings/apikeys.index.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Settings/apikeys.index.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -48,14 +48,14 @@ class ApikeysTest extends \Codeception\Test\Unit
         $keys = $this->api->index();
 
         $this->assertIsArray($keys);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.index.200'), $keys);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Settings/apikeys.index.200'), $keys);
     }
 
     public function testCreate()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/settings/apikeys.post.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Settings/apikeys.post.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -64,14 +64,14 @@ class ApikeysTest extends \Codeception\Test\Unit
         $key = $this->api->create(self::API_KEY_NAME);
 
         $this->assertIsObject($key);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.post.200'), $key);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Settings/apikeys.post.200'), $key);
     }
 
     public function testDelete()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/settings/apikeys.delete.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Settings/apikeys.delete.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -79,7 +79,7 @@ class ApikeysTest extends \Codeception\Test\Unit
         // test
         $response = $this->api->delete(self::API_KEY_ID);
 
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.delete.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Settings/apikeys.delete.200'), $response);
     }
 
     public function testDeleteLast()
@@ -87,8 +87,8 @@ class ApikeysTest extends \Codeception\Test\Unit
         // construct
         $client = $this->make(Client::class, [
             'sendRequest' => Stub::consecutive(
-                Schema::generateResponse('/server/settings/apikeys.index.200', new HttpFactory()),
-                Schema::generateResponse('/server/settings/apikeys.delete.200', new HttpFactory())
+                Schema::generateResponse('/Server/Settings/apikeys.index.200', new HttpFactory()),
+                Schema::generateResponse('/Server/Settings/apikeys.delete.200', new HttpFactory())
             ),
         ]);
 
@@ -97,6 +97,6 @@ class ApikeysTest extends \Codeception\Test\Unit
         // test
         $response = $this->api->deleteLast(self::API_KEY_NAME);
 
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/apikeys.delete.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Settings/apikeys.delete.200'), $response);
     }
 }

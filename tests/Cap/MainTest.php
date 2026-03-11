@@ -38,7 +38,7 @@ class MainTest extends \Codeception\Test\Unit
         $json = json_decode($body);
 
         $validator = new Validator();
-        $validator->validate($json, Schema::getSchema('/main/challenge.200'));
+        $validator->validate($json, Schema::getSchema('/Main/challenge.200'));
 
         $this->assertTrue($validator->isValid(), 'Incorrect JSON schema.');
     }
@@ -73,7 +73,7 @@ class MainTest extends \Codeception\Test\Unit
     {
         try {
             $this->client->post("/{$this->config['siteKey']}/siteverify", [
-                'form_params' => [
+                'json' => [
                     'secret' => $this->config['secretKey'],
                     'response' => 'invalid-token',
                 ],

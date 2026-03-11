@@ -37,7 +37,7 @@ class ServerTest extends \Codeception\Test\Unit
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/about.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/about.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -46,7 +46,7 @@ class ServerTest extends \Codeception\Test\Unit
         $response = $this->api->about();
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/about.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/about.200'), $response);
     }
 
     public function testLogout()

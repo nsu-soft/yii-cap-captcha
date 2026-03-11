@@ -35,7 +35,7 @@ class SettingsTest extends \Codeception\Test\Unit
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/settings/sessions.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Settings/sessions.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -44,6 +44,6 @@ class SettingsTest extends \Codeception\Test\Unit
         $sessions = $this->api->sessions();
 
         $this->assertIsArray($sessions);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/settings/sessions.200'), $sessions);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Settings/sessions.200'), $sessions);
     }
 }

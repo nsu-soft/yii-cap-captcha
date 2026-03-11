@@ -38,7 +38,7 @@ class KeysTest extends \Codeception\Test\Unit
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/keys/index.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Keys/index.200', new HttpFactory()),
         ]);
 
         $this->api->setClient($client);
@@ -47,14 +47,14 @@ class KeysTest extends \Codeception\Test\Unit
         $keys = $this->api->index();
 
         $this->assertIsArray($keys);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/index.200'), $keys);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/index.200'), $keys);
     }
 
     public function testCreate()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/keys/post.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Keys/post.200', new HttpFactory()),
         ]);
         
         $this->api->setClient($client);
@@ -63,14 +63,14 @@ class KeysTest extends \Codeception\Test\Unit
         $key = $this->api->create(self::SITE_KEY_NAME);
 
         $this->assertIsObject($key);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/post.200'), $key);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/post.200'), $key);
     }
 
     public function testView()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/keys/get.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Keys/get.200', new HttpFactory()),
         ]);
         
         $this->api->setClient($client);
@@ -79,14 +79,14 @@ class KeysTest extends \Codeception\Test\Unit
         $response = $this->api->view(self::SITE_KEY);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/get.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/get.200'), $response);
     }
 
     public function testDelete()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/keys/delete.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Keys/delete.200', new HttpFactory()),
         ]);
         
         $this->api->setClient($client);
@@ -95,14 +95,14 @@ class KeysTest extends \Codeception\Test\Unit
         $response = $this->api->delete(self::SITE_KEY);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/delete.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/delete.200'), $response);
     }
 
     public function testConfig()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/keys/config.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Keys/config.200', new HttpFactory()),
         ]);
         
         $this->api->setClient($client);
@@ -116,14 +116,14 @@ class KeysTest extends \Codeception\Test\Unit
         ]);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/config.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/config.200'), $response);
     }
 
     public function testRotateSecret()
     {
         // construct
         $client = $this->make(Client::class, [
-            'sendRequest' => Schema::generateResponse('/server/keys/rotate-secret.200', new HttpFactory()),
+            'sendRequest' => Schema::generateResponse('/Server/Keys/rotate-secret.200', new HttpFactory()),
         ]);
         
         $this->api->setClient($client);
@@ -132,6 +132,6 @@ class KeysTest extends \Codeception\Test\Unit
         $response = $this->api->rotateSecret(self::SITE_KEY);
 
         $this->assertIsObject($response);
-        $this->tester->assertJsonSchema(Schema::getSchema('/server/keys/rotate-secret.200'), $response);
+        $this->tester->assertJsonSchema(Schema::getSchema('/Server/Keys/rotate-secret.200'), $response);
     }
 }

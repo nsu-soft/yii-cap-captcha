@@ -41,7 +41,7 @@ class SettingsTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/settings/sessions.200'),
+            Schema::getSchema('/Server/Settings/sessions.200'),
             json_decode($body)
         );
     }

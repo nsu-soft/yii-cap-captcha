@@ -43,7 +43,7 @@ class ApikeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/settings/apikeys.index.200'),
+            Schema::getSchema('/Server/Settings/apikeys.index.200'),
             json_decode($body)
         );
     }
@@ -63,7 +63,7 @@ class ApikeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/settings/apikeys.post.200'),
+            Schema::getSchema('/Server/Settings/apikeys.post.200'),
             json_decode($body)
         );
 
@@ -87,7 +87,7 @@ class ApikeysTest extends \Codeception\Test\Unit
         $this->assertJson($body, 'Server response is not a JSON.');
 
         $this->tester->assertJsonSchema(
-            Schema::getSchema('/server/settings/apikeys.delete.200'),
+            Schema::getSchema('/Server/Settings/apikeys.delete.200'),
             json_decode($body)
         );
     }
