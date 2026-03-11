@@ -4,7 +4,6 @@
 namespace Tests\Unit\adapters\yii;
 
 use nsusoft\captcha\adapters\yii\ResponseAdapter;
-use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\Support\UnitTester;
 use yii\httpclient\Client;
 
@@ -12,11 +11,8 @@ class ResponseAdapterTest extends \Codeception\Test\Unit
 {
     protected UnitTester $tester;
 
-    protected Psr17Factory $factory;
-
     protected function _before()
     {
-        $this->factory = new Psr17Factory();
     }
 
     public function testToPsr()
@@ -29,7 +25,8 @@ class ResponseAdapterTest extends \Codeception\Test\Unit
             'Cache-Control' => 'no-store, no-cache',
         ]);
 
-        $response = ResponseAdapter::toPsr($yiiResponse);
+        $adapter = new ResponseAdapter();
+        $response = $adapter->toPsr($yiiResponse);
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('{"key": "value"}', (string)$response->getBody());

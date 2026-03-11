@@ -28,8 +28,9 @@ class RequestAdapterTest extends \Codeception\Test\Unit
             ->withHeader('Cache-Control', ['no-store', 'no-cache'])
             ->withBody($stream)
             ->withProtocolVersion('1.1');
-
-        $yiiRequest = RequestAdapter::toYii($request);
+        
+        $adapter = new RequestAdapter();
+        $yiiRequest = $adapter->toYii($request);
 
         $this->assertEquals('GET', $yiiRequest->getMethod());
         $this->assertEquals('/test', $yiiRequest->getUrl());

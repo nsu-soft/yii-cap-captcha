@@ -6,14 +6,12 @@ use Psr\Http\Message\RequestInterface;
 use yii\httpclient\Client;
 use yii\httpclient\Request;
 
-class RequestAdapter
+class RequestAdapter implements RequestAdapterInterface
 {
     /**
-     * Converts PSR-7 request to Yii HTTP client request format.
-     * @param RequestInterface $request
-     * @return Request
+     * @inheritDoc
      */
-    public static function toYii(RequestInterface $request): Request
+    public function toYii(RequestInterface $request): Request
     {
         $client = new Client();
 
