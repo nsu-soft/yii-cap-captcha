@@ -27,8 +27,6 @@ class ApikeysTest extends \Codeception\Test\Unit
         $this->api = new Apikeys([
             'server' => $config['server'],
             'port' => $config['port'],
-            'siteKey' => $config['siteKey'],
-            'secretKey' => $config['secretKey'],
             'apiKey' => $config['apiKey'],
             'factory' => new HttpFactory(),
             'client' => new Client(),

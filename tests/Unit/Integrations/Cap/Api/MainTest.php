@@ -25,8 +25,6 @@ class MainTest extends \Codeception\Test\Unit
         $this->api = new Main([
             'server' => $this->config['server'],
             'port' => $this->config['port'],
-            'siteKey' => $this->config['siteKey'],
-            'secretKey' => $this->config['secretKey'],
             'apiKey' => $this->config['apiKey'],
             'factory' => new HttpFactory(),
             'client' => new Client(),

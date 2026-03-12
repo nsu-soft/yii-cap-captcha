@@ -24,19 +24,9 @@ abstract class AbstractApi extends Component
     public ?int $port = null;
 
     /**
-     * @var string Site key.
+     * @var string|null API key.
      */
-    public string $siteKey = '';
-
-    /**
-     * @var string Secret key.
-     */
-    public string $secretKey = '';
-
-    /**
-     * @var string API key.
-     */
-    public string $apiKey = '';
+    public ?string $apiKey = null;
 
     /**
      * @var RequestFactoryInterface|ResponseFactoryInterface|ServerRequestFactoryInterface|StreamFactoryInterface|UploadedFileFactoryInterface|UriFactoryInterface PSR-17 factory.
@@ -87,6 +77,10 @@ abstract class AbstractApi extends Component
      */
     protected function getAuthorizationHeader(): string
     {
+        if (is_null($this->apiKey)) {
+            return '';
+        }
+
         return "Bot {$this->apiKey}";
     }
 }

@@ -26,8 +26,6 @@ class KeysTest extends \Codeception\Test\Unit
         $this->api = new Keys([
             'server' => $config['server'],
             'port' => $config['port'],
-            'siteKey' => $config['siteKey'],
-            'secretKey' => $config['secretKey'],
             'apiKey' => $config['apiKey'],
             'factory' => new HttpFactory(),
             'client' => new Client(),

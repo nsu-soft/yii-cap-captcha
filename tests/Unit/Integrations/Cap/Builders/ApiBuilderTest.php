@@ -20,8 +20,6 @@ class ApiBuilderTest extends \Codeception\Test\Unit
         $this->builder = new ApiBuilder([
             'server' => $config['server'],
             'port' => $config['port'],
-            'siteKey' => $config['siteKey'],
-            'secretKey' => $config['secretKey'],
             'apiKey' => $config['apiKey'],
         ]);
     }

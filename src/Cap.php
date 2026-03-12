@@ -19,19 +19,19 @@ class Cap extends Component
     public ?int $port = 3000;
 
     /**
-     * @var string Site key.
+     * @var string|null Site key.
      */
-    public string $siteKey;
+    public ?string $siteKey = null;
 
     /**
-     * @var string Secret key.
+     * @var string|null Secret key.
      */
-    public string $secretKey;
+    public ?string $secretKey = null;
 
     /**
-     * @var string API key.
+     * @var string|null API key.
      */
-    public string $apiKey = '';
+    public ?string $apiKey = null;
 
     /**
      * @var stdClass API 
@@ -53,11 +53,9 @@ class Cap extends Component
     private function initApi(): void
     {
         $builder = new ApiBuilder([
-            'siteKey' => $this->siteKey,
-            'secretKey' => $this->secretKey,
-            'apiKey' => $this->apiKey,
             'server' => $this->server,
             'port' => $this->port,
+            'apiKey' => $this->apiKey,
         ]);
 
         $this->setApi($builder->build());
@@ -75,34 +73,38 @@ class Cap extends Component
 
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/challenge
-     * @param string $siteKey
      * @return stdClass
      */
-    public function challenge(string $siteKey): stdClass
+    public function challenge(): stdClass
     {
-        return $this->api->main->challenge($siteKey);
+        return $this->api->main->challenge($this->siteKey);
     }
 
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/redeem
-     * @param string $siteKey
-     * @param array $data
+     * @param string $token
+     * @param array $solutions
      * @return stdClass
      */
-    public function redeem(string $siteKey, array $data): stdClass
+    public function redeem(string $token, array $solutions): stdClass
     {
-        return $this->api->main->redeem($siteKey, $data);
+        return $this->api->main->redeem($this->siteKey, [
+            'token' => $token,
+            'solutions' => $solutions,
+        ]);
     }
 
     /**
      * @see http://localhost:3000/swagger#tag/challenges/POST/{siteKey}/siteverify
-     * @param string $siteKey
-     * @param array $data
+     * @param string $response
      * @return stdClass
      */
-    public function siteVerify(string $siteKey, array $data): stdClass
+    public function siteVerify(string $response): stdClass
     {
-        return $this->api->main->siteverify($siteKey, $data);
+        return $this->api->main->siteverify($this->siteKey, [
+            'secret' => $this->secretKey,
+            'response' => $response,
+        ]);
     }
 
     /**

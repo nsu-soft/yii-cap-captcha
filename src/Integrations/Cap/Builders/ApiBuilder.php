@@ -24,16 +24,6 @@ class ApiBuilder extends Component
     public ?int $port = null;
 
     /**
-     * @var string|null Site key.
-     */
-    public ?string $siteKey = null;
-
-    /**
-     * @var string|null Secret key.
-     */
-    public ?string $secretKey = null;
-
-    /**
      * @var string|null API key.
      */
     public ?string $apiKey = null;
@@ -74,14 +64,6 @@ class ApiBuilder extends Component
 
         if (isset($this->port)) {
             $config['port'] = $this->port;
-        }
-
-        if (isset($this->siteKey)) {
-            $config['siteKey'] = $this->siteKey;
-        }
-
-        if (isset($this->secretKey)) {
-            $config['secretKey'] = $this->secretKey;
         }
 
         if (isset($this->apiKey)) {

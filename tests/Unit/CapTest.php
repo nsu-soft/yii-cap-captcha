@@ -22,6 +22,9 @@ class CapTest extends \Codeception\Test\Unit
     const SESSION = 'session';
     const SITE_KEY = 'site-key';
     const SITE_KEY_NAME = 'site-key-name';
+    const TOKEN = 'token';
+    const SOLUTIONS = ['solution-1', 'solution-2'];
+    const RESPONSE = 'response';
 
     protected UnitTester $tester;
 
@@ -36,19 +39,19 @@ class CapTest extends \Codeception\Test\Unit
 
     public function testChallenge()
     {
-        $response = $this->component->challenge(self::SITE_KEY);
+        $response = $this->component->challenge();
         $this->assertInstanceOf(stdClass::class, $response);
     }
 
     public function testRedeem()
     {
-        $response = $this->component->redeem(self::SITE_KEY, []);
+        $response = $this->component->redeem(self::TOKEN, self::SOLUTIONS);
         $this->assertInstanceOf(stdClass::class, $response);
     }
 
     public function testSiteVerify()
     {
-        $response = $this->component->siteVerify(self::SITE_KEY, []);
+        $response = $this->component->siteVerify(self::RESPONSE);
         $this->assertInstanceOf(stdClass::class, $response);
     }
 

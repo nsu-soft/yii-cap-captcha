@@ -25,8 +25,6 @@ class ServerTest extends \Codeception\Test\Unit
         $this->api = new Server([
             'server' => $config['server'],
             'port' => $config['port'],
-            'siteKey' => $config['siteKey'],
-            'secretKey' => $config['secretKey'],
             'apiKey' => $config['apiKey'],
             'factory' => new HttpFactory(),
             'client' => new Client(),
