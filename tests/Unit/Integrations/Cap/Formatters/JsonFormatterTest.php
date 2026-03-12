@@ -3,10 +3,10 @@
 
 namespace Tests\Unit\Integrations\Cap\Formatters;
 
+use NsuSoft\Captcha\Exceptions\JsonDecodeException;
 use NsuSoft\Captcha\Integrations\Cap\Formatters\JsonFormatter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Tests\Support\UnitTester;
-use yii\base\InvalidArgumentException;
 
 class JsonFormatterTest extends \Codeception\Test\Unit
 {
@@ -50,7 +50,7 @@ class JsonFormatterTest extends \Codeception\Test\Unit
         $response = $this->factory->createResponse()
             ->withBody($stream);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(JsonDecodeException::class);
 
         JsonFormatter::fromResponse($response);
     }

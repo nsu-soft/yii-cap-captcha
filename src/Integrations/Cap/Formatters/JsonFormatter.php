@@ -2,6 +2,7 @@
 
 namespace NsuSoft\Captcha\Integrations\Cap\Formatters;
 
+use NsuSoft\Captcha\Exceptions\JsonDecodeException;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use yii\base\InvalidArgumentException;
@@ -17,6 +18,10 @@ class JsonFormatter
      */
     public static function fromResponse(ResponseInterface $response): array|stdClass|null
     {
-        return Json::decode((string)$response->getBody(), false);
+        try {
+            return Json::decode((string)$response->getBody(), false);
+        } catch (InvalidArgumentException $e) {
+            throw new JsonDecodeException($e, $response);
+        }
     }
 }
