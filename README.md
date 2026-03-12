@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
-[![Status](https://img.shields.io/badge/status-develop-yellow.svg)](../../tree/develop)
+[![Status](https://img.shields.io/badge/stable-1.0-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
 > ⚠️ **Notice**: This package is under active development (`develop` branch). The API and functionality are subject to change without prior notice.
 
@@ -18,7 +18,6 @@
 - [Requirements](#-requirements)
 - [Installation](#-installation)
 - [Configuration](#-configuration)
-- [Quick Start with Docker](#-quick-start-with-docker)
 - [Usage](#-usage)
 - [Testing](#-testing)
 - [Project Structure](#-project-structure)
@@ -31,16 +30,16 @@
 
 ## 📋 Overview
 
-**yii-cap-captcha** is a PHP library for the **Yii2** framework that provides a robust and convenient interface for interacting with the standalone **[Cap Captcha](https://github.com/tiago2/cap)** server. The package enables seamless integration of bot protection into your Yii2 applications by leveraging an external service for captcha generation, challenge delivery, and response validation.
+**yii-cap-captcha** is a PHP library for the **Yii2** framework that provides a robust and convenient interface for interacting with the standalone **[Cap Captcha](https://github.com/tiagozip/cap)** server. The package enables seamless integration of bot protection into your Yii2 applications by leveraging an external service for captcha generation, challenge delivery, and response validation.
 
-This component follows Yii2 design patterns, supports dependency injection, and is fully compatible with PSR-7 (HTTP message) and PSR-18 (HTTP client) standards.
+This component follows Yii2 design patterns and is fully compatible with PSR-7 (HTTP message) and PSR-18 (HTTP client) standards.
 
 ---
 
 ## ✨ Features
 
 - 🔐 **Full Cap Captcha API Integration**: Access all endpoints including challenge, redeem, siteverify, and administrative operations.
-- 🧩 **Yii2 Component Architecture**: Drop-in component with support for Yii's DI container and application configuration.
+- 🧩 **Yii2 Component Architecture**: Drop-in component with support for Yii's application configuration.
 - 🔑 **Comprehensive Key Management**: Create, view, update, rotate, and delete site keys and API keys programmatically.
 - 🐳 **Docker-Ready**: Pre-configured `docker-compose.yml` for instant local development and testing environments.
 - 🧪 **Tested with Codeception**: Full test suite covering unit and functional scenarios.
@@ -58,117 +57,66 @@ This component follows Yii2 design patterns, supports dependency injection, and 
 | **PSR HTTP Client** | `^1.0` | HTTP client interface (PSR-18) |
 | **HTTP Message Factory** | `^1.0` | PSR-7 message factory interface |
 | **HTTP Discovery** | `^1.20` | For automatic HTTP client/stream factory discovery |
+| **Cap Captcha Server** | `^2.2` | Cap Captcha standalone server |
 
 ---
 
 ## 📦 Installation
 
-Install the package via Composer:
+If you don't have Composer, you may install it by [following instruction](https://getcomposer.org/doc/00-intro.md).
+
+Than install the package via Composer:
 
 ```bash
-composer require nsu-soft/yii-cap-captcha:@dev --prefer-source
+composer require nsu-soft/yii-cap-captcha
 ```
 
-> 📌 **Note**: Since this package is in active development, the `@dev` stability flag is required to install it. For production use, wait for a stable release or pin to a specific commit hash.
+You also need an HTTP client installed in your project. You may use standard [yiisoft/yii2-httpclient](https://packagist.org/packages/yiisoft/yii2-httpclient). Additionally you need to install PSR-17 implementation. For example:
+
+```bash
+composer require yiisoft/yii2-httpclient
+composer require nyholm/psr7
+```
+
+Or you may use one of [PSR-18 implementations](https://packagist.org/providers/psr/http-client-implementation).
+
+For example:
+
+```bash
+composer require guzzlehttp/guzzle
+```
+
+The package will use the HTTP client that it finds in the project. It uses [php-http/discovery](https://packagist.org/packages/php-http/discovery) package to find the HTTP client.
 
 ---
 
 ## ⚙️ Configuration
 
-### Step 1: Create Configuration File
+### Step 1: Generate keys in Cap Captcha server admin panel
 
-Copy the distribution configuration template:
+Generate access keys to the Cap Captcha server as described on the [official website](https://capjs.js.org/guide/) in the "Setting up your server" section.
 
-```bash
-cp config/captcha.dist.php config/captcha.php
-```
+### Step 2: Add configuration to your Yii 2 application
 
-### Step 2: Fill Connection Parameters
-
-Edit `config/captcha.php` with your Cap Captcha server details:
+Add your Cap Captcha server details to your application configuration:
 
 ```php
-<?php
-return [
-    // Cap Captcha server connection
-    'server' => 'http://localhost',  // Base URL of the Cap server
-    'port' => 3000,                  // Server port (default: 3000)
-    
-    // Site credentials (provided during site registration)
-    'siteKey' => 'your-site-key',    // Public site identifier
-    'secretKey' => 'your-secret-key',// Private key for response validation
-    
-    // Optional: API key for administrative operations
-    'apiKey' => '',                  // Leave empty if not managing keys programmatically
-    
-    // Optional: HTTP client configuration
-    'client' => [
-        'class' => \yii\httpclient\Client::class,
-        // Additional client options...
-    ],
-];
-```
+    'components' => [
+        'captcha' => [
+            'class' => NsuSoft\Captcha\Cap::class,
 
-### Step 3: Register Component
+            'server' => 'http://localhost',   // Base URL of the Cap server
+            'port' => 3000,                   // Server port (default: 3000)
+            
+            // Site credentials (provided during site registration)
+            'siteKey' => 'your-site-key',     // Public site identifier
+            'secretKey' => 'your-secret-key', // Private key for client request validation
 
-Add the component to your Yii2 application configuration (`config/web.php` or `config/main.php`):
-
-```php
-'components' => [
-    'captcha' => [
-        'class' => \NsuSoft\Captcha\Cap::class,
-        'server' => 'http://localhost',
-        'port' => 3000,
-        'siteKey' => 'your-site-key',
-        'secretKey' => 'your-secret-key',
-        'apiKey' => '',
-        'client' => [
-            'class' => \yii\httpclient\Client::class,
+            // Optional: API key for administrative operations
+            'apiKey' => '',                   // Leave empty if not managing keys programmatically
         ],
     ],
-],
 ```
-
----
-
-## 🚀 Quick Start with Docker
-
-The project includes a `docker-compose.yml` file to spin up a local Cap Captcha server for development and testing.
-
-### docker-compose.yml (example)
-
-```yaml
-version: '3.8'
-
-services:
-  cap:
-    image: tiago2/cap:2.2.1
-    container_name: cap-captcha
-    environment:
-      ADMIN_KEY: j9c8TClJJror0Wki
-    ports:
-      - "3000:3000"
-    volumes:
-      - cap_data:/usr/src/app/.data
-    restart: unless-stopped
-
-volumes:
-  cap_data
-```
-
-### Start the Services
-
-```bash
-docker-compose up -d
-```
-
-### Access Points
-
-| Service | URL | Description |
-|---------|-----|-------------|
-| 🌐 Cap Server | `http://localhost:3000` | Main API endpoint |
-| 📚 Swagger UI | `http://localhost:3000/swagger` | Interactive API documentation |
-| 🔑 Admin Key | `j9c8TClJJror0Wki` | Default admin key (change in production) |
 
 ---
 
@@ -182,51 +130,49 @@ Access the configured component from anywhere in your Yii2 application:
 $cap = Yii::$app->captcha;
 ```
 
-Or via dependency injection in a controller/service:
+### Methods Reference
 
-```php
-public function __construct(
-    private \NsuSoft\Captcha\Cap $captcha,
-) {}
-```
-
-### Core Methods Reference
+JSON schemas are located in `tests/Support/Data/Cap` directory.
 
 | Method | Description | Parameters | Returns |
 |--------|-------------|------------|---------|
-| `challenge(string $siteKey)` | Request a new captcha challenge for a site | `string $siteKey` | `stdClass` with `challenge`, `sessionId`, `image`, etc. |
-| `redeem(string $siteKey, array $data)` | Validate user's captcha response | `string $siteKey`, `array $data` | `stdClass` with `success`, `sessionId`, `errorCodes` |
-| `siteVerify(string $siteKey, array $data)` | Alternative validation endpoint (reCAPTCHA-style flow) | `string $siteKey`, `array $data` | `stdClass` with validation result |
-| `getAbout()` | Retrieve server metadata and version info | — | `stdClass` with `version`, `description`, etc. |
+| `siteVerify(string $response)` | Alternative validation endpoint (reCAPTCHA-style flow) | `$response'`: token from `/{siteKey}/redeem` endpoint | See JSON schema in `Main/siteverify.200.json` |
+| `getAbout()` | Retrieves server metadata | — | See JSON schema in `Server/about.200.json` |
+| `logout(string $session)` | Logout specified session | `$session` | `null` |
+| `getKeys()` | Gets all site keys | — | See JSON schema in `Server/Keys/index.200.json` |
+| `createKey(string $name)` | Creates site key | `$name` | See JSON schema in `Server/Keys/post.200.json` |
+| `viewKey(string $siteKey)` | Views site key | `$siteKey` | See JSON schema in `Server/Keys/get.200.json` |
+| `deleteKey(string $siteKey)` | Deletes site key with it secret | `$siteKey` | See JSON schema in `Server/Keys/delete.200.json` |
+| `configKey(string $siteKey, array $options = [])` | Configures site key | `$siteKey`, `$options = ['challengeCount' => int, 'difficulty' => int, 'name' => 'new-name', 'saltSize' => int]` | See JSON schema in `Server/Keys/config.200.json` |
+| `rotateSecret(string $siteKey)` | Rotates secret key for specified site key | — | See JSON schema in `Server/Keys/rotate-secret.200.json` |
+| `getApiKeys()` | Gets all API keys | — | See JSON schema in `Server/Settings/apikeys.index.200.json` |
+| `createApiKey(string $name)` | Creates API key | `$name` | See JSON schema in `Server/Settings/apikeys.post.200.json` |
+| `deleteApiKey(string $id)` | Deletes API key | `$id` | See JSON schema in `Server/Settings/apikeys.delete.200.json` |
+| `deleteLastApiKey(string $name)` | Deletes a last added API key by it name | `$name` | See JSON schema in `Server/Settings/apikeys.delete.200.json` |
+| `getSessions()` | Gets all sessions tokens | — | See JSON schema in `Server/Settings/sessions.200.json` |
 
 ### Example: Validating User Response
 
 ```php
-use yii\base\Exception;
+use NsuSoft\Captcha\Exceptions\JsonDecodeException;
+use Psr\Http\Client\ClientExceptionInterface;
 use Yii;
 
+$cap = Yii::$app->captcha;
+
 try {
-    $result = $cap->redeem($siteKey, [
-        'token' => $userSubmittedToken,
-        'action' => 'login',
-        'ip' => Yii::$app->request->userIP,
-        'userAgent' => Yii::$app->request->userAgent,
-    ]);
+    $response = $cap->siteVerify($responseToken); // token from @cap.js/widget
     
-    if ($result->success) {
+    if ($response->success) {
         // ✅ Captcha validation successful
-        Yii::info("Captcha passed for session: {$result->sessionId}");
-    } else {
-        // ❌ Validation failed
-        $errors = implode(', ', $result->errorCodes ?? ['unknown_error']);
-        throw new Exception("Captcha validation failed: {$errors}");
+        Yii::info("Captcha passed");
     }
-} catch (\yii\httpclient\Exception $e) {
+} catch (ClientExceptionInterface $e) {
     // Network or server communication error
     Yii::error("Captcha service unavailable: " . $e->getMessage());
-} catch (\Exception $e) {
-    // Unexpected error
-    Yii::error("Unexpected captcha error: " . $e->getMessage());
+} catch (JsonDecodeException $e) {
+    // JSON decoding from server response was failed
+    Yii::error("JSON decoding error: " . $e->getMessage());
 }
 ```
 
@@ -235,6 +181,10 @@ try {
 > ⚠️ These methods require a valid `apiKey` configured in the component.
 
 ```php
+use Yii;
+
+$cap = Yii::$app->captcha;
+
 // List all registered site keys
 $keys = $cap->getKeys();
 
@@ -246,8 +196,10 @@ $keyInfo = $cap->viewKey('your-site-key');
 
 // Update key configuration
 $cap->configKey('your-site-key', [
-    'enabled' => true,
-    'maxRequestsPerMinute' => 60,
+    'challengeCount' => 10,
+    'difficulty' => 5,
+    'name' => 'new-site-key-name',
+    'saltSize' => 40,
 ]);
 
 // Rotate the secret key (invalidates old secret)
@@ -259,7 +211,13 @@ $cap->deleteKey('your-site-key');
 
 ### API Key Management
 
+> ⚠️ These methods require a valid `apiKey` configured in the component.
+
 ```php
+use Yii;
+
+$cap = Yii::$app->captcha;
+
 // List all API keys
 $apiKeys = $cap->getApiKeys();
 
@@ -275,7 +233,13 @@ $cap->deleteLastApiKey('CI/CD Deployment Tool');
 
 ### Session Management
 
+> ⚠️ These methods require a valid `apiKey` configured in the component.
+
 ```php
+use Yii;
+
+$cap = Yii::$app->captcha;
+
 // Retrieve list of active sessions
 $sessions = $cap->getSessions();
 
@@ -301,17 +265,16 @@ vendor/bin/codecept run
 # Run with verbose output
 vendor/bin/codecept run --verbose
 
-# Run a specific test file
-vendor/bin/codecept run Unit CapTest
-
-# Run tests with coverage report
-vendor/bin/codecept run --coverage --coverage-html
+# Run a specific test suite
+vendor/bin/codecept run Unit
 ```
 
 ### Run Tests in Docker
 
 ```bash
-docker-compose run --rm php vendor/bin/codecept run
+cd ./bin
+./start.sh
+./codecept.sh run
 ```
 
 ### Configuration Files
@@ -320,7 +283,7 @@ docker-compose run --rm php vendor/bin/codecept run
 |------|---------|
 | `codeception.yml` | Main Codeception configuration |
 | `config/test.php` | Application configuration for test environment |
-| `tests/_support/` | Helper classes, fixtures, and step objects |
+| `tests/Support/` | Helper classes, fixtures, and step objects |
 
 ---
 
@@ -328,20 +291,20 @@ docker-compose run --rm php vendor/bin/codecept run
 
 ```
 yii-cap-captcha/
-├── src/
-│   ├── Cap.php                 # Main component class
-│   ├── Adapters/               # HTTP client adapters (PSR-18)
-│   ├── Factories/              # Object factories
-│   └── Integrations/           # Cap API endpoint integrations
+├── bin/                        # Docker wrapper scripts
 ├── config/
 │   ├── captcha.dist.php        # Configuration template
 │   └── test.php                # Test environment config
+├── src/
+│   ├── Cap.php                 # Main component class
+│   ├── Adapters/               # HTTP client adapters (PSR-18)
+│   ├── Exceptions/             # Exceptions
+│   ├── Factories/              # Object factories
+│   └── Integrations/Cap/       # Cap API endpoint integrations
 ├── tests/
 │   ├── Unit/                   # Unit tests
 │   ├── Functional/             # Integration tests
-│   └── _support/               # Test helpers and fixtures
-├── bin/
-│   └── docker/                 # Docker entrypoint and helper scripts
+│   └── Support/                # Test helpers and fixtures
 ├── composer.json               # Dependencies, autoloading, scripts
 ├── docker-compose.yml          # Docker orchestration for dev/test
 ├── codeception.yml             # Codeception test runner config
@@ -359,19 +322,9 @@ The component throws exceptions for recoverable and unrecoverable errors. Always
 
 | Exception | When Thrown | Recommended Action |
 |-----------|-------------|-------------------|
-| `\yii\httpclient\Exception` | Network timeout, DNS failure, server unreachable | Retry with backoff, fallback to alternative validation |
-| `\NsuSoft\Captcha\Exception\CaptchaException` | Invalid response format, API error (4xx/5xx) | Log error, show user-friendly message |
-| `\InvalidArgumentException` | Missing required parameters, invalid key format | Fix configuration or input validation |
-
-### Common Error Codes (from `errorCodes` array)
-
-| Code | Meaning | Action |
-|------|---------|--------|
-| `invalid-token` | Submitted token is malformed or expired | Request new challenge |
-| `invalid-secret` | Site secret key is incorrect | Verify configuration |
-| `site-disabled` | Site key has been disabled | Contact administrator |
-| `rate-limit-exceeded` | Too many requests from this IP/site | Implement client-side throttling |
-| `challenge-expired` | Challenge TTL exceeded | Refresh captcha UI |
+| `Psr\Http\Client\RequestExceptionInterface` | Exception for when a request failed. | Request from this package is not compatible with Cap Captcha server. Open an issue in this repository. |
+| `Psr\Http\Client\NetworkExceptionInterface` |  Thrown when the request cannot be completed because of network issues. | Check the network connection |
+| `NsuSoft\Captcha\Exceptions\ResponseExceptionInterface` | Cap Captcha response body is not a valid JSON | Incompatible version of Cap Captcha server with this package. Open an issue in this repository. |
 
 ---
 
@@ -380,7 +333,7 @@ The component throws exceptions for recoverable and unrecoverable errors. Always
 > ⚠️ **Critical Security Guidelines**
 
 1. **Never commit secrets to version control**  
-   Exclude `config/captcha.php` from Git or use environment variables:
+   Exclude site key, secret key and API key from Git:
    ```php
    'secretKey' => getenv('CAPTCHA_SECRET_KEY'),
    'apiKey' => getenv('CAPTCHA_API_KEY'),
@@ -398,10 +351,7 @@ The component throws exceptions for recoverable and unrecoverable errors. Always
 5. **Enforce HTTPS in production**  
    Always use `https://` for the `server` URL when deploying to production.
 
-6. **Validate and sanitize all user input**  
-   Never trust client-supplied data; validate `token`, `action`, and `ip` before passing to `redeem()`.
-
-7. **Monitor and log suspicious activity**  
+6. **Monitor and log suspicious activity**  
    Log failed validation attempts and unusual patterns for security auditing.
 
 ---
