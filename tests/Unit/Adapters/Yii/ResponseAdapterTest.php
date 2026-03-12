@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\adapters\yii;
+namespace Tests\Unit\Adapters\Yii;
 
 use NsuSoft\Captcha\Adapters\Yii\ResponseAdapter;
 use Tests\Support\UnitTester;

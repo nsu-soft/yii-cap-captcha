@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\adapters\yii;
+namespace Tests\Unit\Adapters\Yii;
 
 use NsuSoft\Captcha\Adapters\Yii\RequestAdapter;
 use Nyholm\Psr7\Factory\Psr17Factory;

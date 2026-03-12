@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\integrations\cap\api\server\settings;
+namespace Tests\Unit\Integrations\Cap\Api\Server\Settings;
 
 use Codeception\Stub;
 use GuzzleHttp\Client;

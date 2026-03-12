@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\integrations\cap\builders;
+namespace Tests\Unit\Integrations\Cap\Builders;
 
 use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
 use Tests\Support\Data\Config\Generator;

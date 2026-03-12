@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\integrations\cap\api;
+namespace Tests\Unit\Integrations\Cap\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;

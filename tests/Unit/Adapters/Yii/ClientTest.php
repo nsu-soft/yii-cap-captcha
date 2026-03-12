@@ -1,11 +1,12 @@
 <?php
 
 
-namespace Tests\Unit\adapters\yii;
+namespace Tests\Unit\Adapters\Yii;
 
 use NsuSoft\Captcha\Adapters\Yii\Client;
 use NsuSoft\Captcha\Adapters\Yii\RequestAdapter;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Support\UnitTester;
 use yii\httpclient\Client as YiiClient;
@@ -37,5 +38,15 @@ class ClientTest extends \Codeception\Test\Unit
         $response = $client->sendRequest($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
+    }
+
+    public function testSendRequestException()
+    {
+        $client = new Client();
+        $request = $this->factory->createRequest('GET', '/incorrect-path');
+        
+        $this->expectException(ClientExceptionInterface::class);
+
+        $client->sendRequest($request);
     }
 }

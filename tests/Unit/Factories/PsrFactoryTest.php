@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\Unit\factories;
+namespace Tests\Unit\Factories;
 
 use NsuSoft\Captcha\Factories\PsrFactory;
 use Psr\Http\Client\ClientInterface;

@@ -6,6 +6,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use yii\base\Component;
+use yii\httpclient\Exception;
 
 class Client extends Component implements ClientInterface
 {
@@ -75,7 +76,11 @@ class Client extends Component implements ClientInterface
      */
     public function sendRequest(RequestInterface $request): ResponseInterface
     {
-        $response = $this->requestAdapter->toYii($request)->send();
-        return $this->responseAdapter->toPsr($response);
+        try {
+            $response = $this->requestAdapter->toYii($request)->send();
+            return $this->responseAdapter->toPsr($response);
+        } catch (Exception $e) {
+            throw new RequestException($e, $request);
+        }
     }
 }

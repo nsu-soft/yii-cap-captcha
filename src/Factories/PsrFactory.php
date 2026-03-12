@@ -32,7 +32,7 @@ class PsrFactory
     public static function createClient(): ClientInterface
     {
         if (class_exists(YiiClient::class)) {
-            return new yii\Client();
+            return new Yii\Client();
         }
 
         return new Psr18Client();
