@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "properties": {
+        "challenge": {
+            "type": "object",
+            "properties": {
+                "c": { "type": "number" },
+                "s": { "type": "number" },
+                "d": { "type": "number" }
+            },
+            "required": ["c", "s", "d"]
+        },
+        "token": {
+            "type": "string",
+            "minLength": 236,
+            "maxLength": 236
+        },
+        "expires": {
+            "type": "number"
+        }
+    },
+    "required": ["challenge", "token", "expires"]
+}

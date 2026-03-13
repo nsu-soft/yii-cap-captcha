@@ -1,0 +1,18 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "token": {
+                "type": "string"
+            },
+            "expires": {
+                "type": "string"
+            },
+            "created": {
+                "type": "string"
+            }
+        },
+        "required": ["token", "expires", "created"]
+    }
+}

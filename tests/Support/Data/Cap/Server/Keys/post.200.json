@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+        "siteKey": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 10
+        },
+        "secretKey": {
+            "type": "string",
+            "maxLength": 60
+        }
+    },
+    "required": ["siteKey", "secretKey"]
+}

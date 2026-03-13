@@ -7,7 +7,7 @@
         "captcha",
         "security"
     ],
-    "version": "0.1",
+    "version": "1.0",
     "type": "library",
     "license": "BSD-3-Clause",
     "support": {
@@ -18,17 +18,28 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.3",
-        "yiisoft/yii2": "~2.0.50"
+        "yiisoft/yii2": "~2.0.50",
+        "psr/http-client": "^1.0",
+        "php-http/discovery": "^1.20",
+        "psr/http-client-implementation": "*",
+        "psr/http-factory-implementation": "*"
     },
     "require-dev": {
         "codeception/codeception": "^5.3",
         "codeception/module-asserts": "^3.3",
         "codeception/module-yii2": "^2.0",
-        "codeception/module-phpbrowser": "^4.0"
+        "yiisoft/yii2-httpclient": "^2.0",
+        "guzzlehttp/guzzle": "^7.10",
+        "nyholm/psr7": "^1.8",
+        "justinrainbow/json-schema": "^6.7",
+        "koriym/json-schema-faker": "^0.3.1"
+    },
+    "suggest": {
+        "yiisoft/yii2-httpclient": "Allows you to access the Cap Captcha API in a native way"
     },
     "autoload": {
         "psr-4": {
-            "nsusoft\\captcha\\": "src/"
+            "NsuSoft\\Captcha\\": "src/"
         }
     },
     "autoload-dev": {
@@ -44,7 +55,8 @@
     ],
     "config": {
         "allow-plugins": {
-            "yiisoft/yii2-composer": true
+            "yiisoft/yii2-composer": true,
+            "php-http/discovery": false
         }
     }
 }
