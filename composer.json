@@ -7,7 +7,7 @@
         "captcha",
         "security"
     ],
-    "version": "0.1",
+    "version": "1.0",
     "type": "library",
     "license": "BSD-3-Clause",
     "support": {
@@ -30,7 +30,6 @@
         "codeception/module-yii2": "^2.0",
         "yiisoft/yii2-httpclient": "^2.0",
         "guzzlehttp/guzzle": "^7.10",
-        "symfony/http-client": "^7.4",
         "nyholm/psr7": "^1.8",
         "justinrainbow/json-schema": "^6.7",
         "koriym/json-schema-faker": "^0.3.1"
