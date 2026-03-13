@@ -1,11 +1,9 @@
-# nsu-soft/yii-cap-captcha
+# yii-cap-captcha
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
 [![Status](https://img.shields.io/badge/stable-1.0-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
-
-> ⚠️ **Примечание**: Этот пакет находится в стадии активной разработки (ветка `develop`). API и функциональность могут быть изменены без предварительного уведомления.
 
 ---
 
@@ -54,7 +52,6 @@
 | **Yii Framework** | `~2.0.50` | Фреймворк веб-приложений Yii2 |
 | **PSR HTTP Client** | `^1.0` | Интерфейс HTTP-клиента (PSR-18) |
 | **HTTP Message Factory** | `^1.0` | Интерфейс фабрики сообщений PSR-7 |
-| **HTTP Discovery** | `^1.20` | Для автоматического обнаружения HTTP-клиента и фабрики потоков |
 | **Cap Captcha Server** | `^2.2` | Автономный сервер Cap Captcha |
 
 ---
@@ -409,4 +406,4 @@ yii-cap-captcha/
 ## 📄 Лицензия
 
 Этот проект является программным обеспечением с открытым исходным кодом, распространяемым по лицензии **BSD-3-Clause**.  
-Полный текст лицензии находится в файле [LICENSE](LICENSE).
+Полный текст лицензии находится в файле [LICENSE](../../LICENSE).

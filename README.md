@@ -7,8 +7,6 @@
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
 [![Status](https://img.shields.io/badge/stable-1.0-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
-> ⚠️ **Notice**: This package is under active development (`develop` branch). The API and functionality are subject to change without prior notice.
-
 ---
 
 ## 📑 Table of Contents
@@ -56,7 +54,6 @@ This component follows Yii2 design patterns and is fully compatible with PSR-7 (
 | **Yii Framework** | `~2.0.50` | Yii2 web application framework |
 | **PSR HTTP Client** | `^1.0` | HTTP client interface (PSR-18) |
 | **HTTP Message Factory** | `^1.0` | PSR-7 message factory interface |
-| **HTTP Discovery** | `^1.20` | For automatic HTTP client/stream factory discovery |
 | **Cap Captcha Server** | `^2.2` | Cap Captcha standalone server |
 
 ---
@@ -139,7 +136,7 @@ JSON schemas are located in `tests/Support/Data/Cap` directory.
 | `siteVerify(string $response)` | Alternative validation endpoint (reCAPTCHA-style flow) | `$response'`: token from `/{siteKey}/redeem` endpoint | See JSON schema in `Main/siteverify.200.json` |
 | `getAbout()` | Retrieves server metadata | — | See JSON schema in `Server/about.200.json` |
 | `logout(string $session)` | Logout specified session | `$session` | `null` |
-| `getKeys()` | Gets all site keys | — | See JSON schema in `Server/Keys/index.200.json` |
+| `getKeys()` | Gets all sites keys | — | See JSON schema in `Server/Keys/index.200.json` |
 | `createKey(string $name)` | Creates site key | `$name` | See JSON schema in `Server/Keys/post.200.json` |
 | `viewKey(string $siteKey)` | Views site key | `$siteKey` | See JSON schema in `Server/Keys/get.200.json` |
 | `deleteKey(string $siteKey)` | Deletes site key with it secret | `$siteKey` | See JSON schema in `Server/Keys/delete.200.json` |
