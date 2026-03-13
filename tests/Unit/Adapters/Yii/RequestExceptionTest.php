@@ -11,8 +11,8 @@ use yii\httpclient\Exception;
 
 class RequestExceptionTest extends \Codeception\Test\Unit
 {
-    const YII_ERROR_MESSAGE = 'yii-error-message';
-    const YII_ERROR_CODE = 1;
+    const ERROR_MESSAGE = 'error-message';
+    const ERROR_CODE = 1;
 
     protected UnitTester $tester;
 
@@ -25,13 +25,13 @@ class RequestExceptionTest extends \Codeception\Test\Unit
 
     public function testConstruct()
     {
-        $yiiException = new Exception(self::YII_ERROR_MESSAGE, self::YII_ERROR_CODE);
+        $yiiException = new Exception(self::ERROR_MESSAGE, self::ERROR_CODE);
         $request = $this->factory->createRequest('GET', '/incorrect-path');
         
         $requestException = new RequestException($yiiException, $request);
 
-        $this->assertEquals(self::YII_ERROR_MESSAGE, $requestException->getMessage());
-        $this->assertEquals(self::YII_ERROR_CODE, $requestException->getCode());
+        $this->assertEquals(self::ERROR_MESSAGE, $requestException->getMessage());
+        $this->assertEquals(self::ERROR_CODE, $requestException->getCode());
         
         $this->assertInstanceOf(RequestInterface::class, $requestException->getRequest());
         $this->assertEquals('GET', $requestException->getRequest()->getMethod());
