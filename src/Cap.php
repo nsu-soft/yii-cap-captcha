@@ -3,6 +3,7 @@
 namespace NsuSoft\Captcha;
 
 use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
+use NsuSoft\Captcha\Models\Host;
 use stdClass;
 use yii\base\Component;
 
@@ -10,13 +11,20 @@ class Cap extends Component
 {
     /**
      * @var string URL of Cap Captcha server.
+     * TODO: specify host with port in one property
      */
     public string $server = 'http://localhost';
 
     /**
      * @var int|null Port of Cap Captcha server.
+     * TODO: specify host with port in one property
      */
     public ?int $port = 3000;
+
+    /**
+     * @var string URL of Cap Captcha server.
+     */
+    // public string $endpoint = '';
 
     /**
      * @var string|null Site key.
@@ -69,6 +77,20 @@ class Cap extends Component
     public function setApi(stdClass $api): void
     {
         $this->api = $api;
+    }
+
+    /**
+     * Gets API base URI to use in CapWidget.
+     * @return string
+     */
+    public function getEndpoint(): string
+    {
+        $host = new Host([
+            'server' => $this->server,
+            'port' => $this->port,
+        ]);
+
+        return $host->getBaseUri();
     }
 
     /**

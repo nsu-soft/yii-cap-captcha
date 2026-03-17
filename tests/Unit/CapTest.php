@@ -37,6 +37,11 @@ class CapTest extends \Codeception\Test\Unit
         $this->component->setApi($this->getApi());
     }
 
+    public function testGetEndpoint()
+    {
+        $this->markTestIncomplete();
+    }
+
     public function testChallenge()
     {
         $response = $this->component->challenge();

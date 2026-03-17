@@ -2,6 +2,7 @@
 
 namespace NsuSoft\Captcha\Integrations\Cap\Api;
 
+use NsuSoft\Captcha\Models\Host;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -64,11 +65,12 @@ abstract class AbstractApi extends Component
      */
     protected function getBaseUri(): string
     {
-        if (is_null($this->port)) {
-            return $this->server;
-        }
+        $host = new Host([
+            'server' => $this->server,
+            'port' => $this->port,
+        ]);
 
-        return "{$this->server}:{$this->port}";
+        return $host->getBaseUri();
     }
 
     /**
