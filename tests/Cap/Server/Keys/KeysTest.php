@@ -27,7 +27,7 @@ class KeysTest extends \Codeception\Test\Unit
         ];
 
         $this->client = new Client([
-            'base_uri' => "{$config['server']}:{$config['port']}",
+            'base_uri' => $config['endpoint'],
         ]);
     }
 
