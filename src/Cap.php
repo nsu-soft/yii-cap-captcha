@@ -3,7 +3,6 @@
 namespace NsuSoft\Captcha;
 
 use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
-use NsuSoft\Captcha\Models\Host;
 use stdClass;
 use yii\base\Component;
 
@@ -11,20 +10,8 @@ class Cap extends Component
 {
     /**
      * @var string URI of Cap Captcha server.
-     * @deprecated Will be removed in version `2.0`. Use `endpoint` property instead of this.
      */
-    public string $server = 'http://localhost';
-
-    /**
-     * @var int|null Port of Cap Captcha server.
-     * @deprecated Will be removed in version `2.0`. Use `endpoint` property instead of this.
-     */
-    public ?int $port = 3000;
-
-    /**
-     * @var string URI of Cap Captcha server.
-     */
-    public ?string $endpoint = null;
+    public string $endpoint = 'http://localhost:3000';
 
     /**
      * @var string|null Site key.
@@ -61,15 +48,6 @@ class Cap extends Component
      */
     private function initEndpoint(): void
     {
-        if (is_null($this->endpoint)) {
-            $host = new Host([
-                'server' => $this->server,
-                'port' => $this->port,
-            ]);
-
-            $this->endpoint = $host->getBaseUri();
-        }
-
         $this->endpoint = rtrim($this->endpoint, '/');
     }
 
