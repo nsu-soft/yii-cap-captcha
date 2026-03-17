@@ -15,7 +15,7 @@ class Apikeys extends AbstractApi
      */
     public function index(): array
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/settings/apikeys");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/settings/apikeys");
         
         $request = $this->factory->createRequest('GET', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());
@@ -32,7 +32,7 @@ class Apikeys extends AbstractApi
      */
     public function create(string $name): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/settings/apikeys");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/settings/apikeys");
         $stream = $this->factory->createStream(Json::encode(['name' => $name]));
         
         $request = $this->factory->createRequest('POST', $uri)
@@ -52,7 +52,7 @@ class Apikeys extends AbstractApi
      */
     public function delete(string $id): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/settings/apikeys/{$id}");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/settings/apikeys/{$id}");
         
         $request = $this->factory->createRequest('DELETE', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());

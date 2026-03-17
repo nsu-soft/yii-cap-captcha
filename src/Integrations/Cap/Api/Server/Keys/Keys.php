@@ -15,7 +15,7 @@ class Keys extends AbstractApi
      */
     public function index(): array
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/keys");
         
         $request = $this->factory->createRequest('GET', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());
@@ -32,7 +32,7 @@ class Keys extends AbstractApi
      */
     public function create(string $name): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/keys");
         $stream = $this->factory->createStream(Json::encode(['name' => $name]));
         
         $request = $this->factory->createRequest('POST', $uri)
@@ -52,7 +52,7 @@ class Keys extends AbstractApi
      */
     public function view(string $siteKey): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/keys/{$siteKey}");
         
         $request = $this->factory->createRequest('GET', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());
@@ -69,7 +69,7 @@ class Keys extends AbstractApi
      */
     public function delete(string $siteKey): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/keys/{$siteKey}");
         
         $request = $this->factory->createRequest('DELETE', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());
@@ -87,7 +87,7 @@ class Keys extends AbstractApi
      */
     public function config(string $siteKey, array $options = []): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}/config");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/keys/{$siteKey}/config");
         $stream = $this->factory->createStream(Json::encode($options));
         
         $request = $this->factory->createRequest('PUT', $uri)
@@ -107,7 +107,7 @@ class Keys extends AbstractApi
      */
     public function rotateSecret(string $siteKey): stdClass
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/keys/{$siteKey}/rotate-secret");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/keys/{$siteKey}/rotate-secret");
         
         $request = $this->factory->createRequest('POST', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());

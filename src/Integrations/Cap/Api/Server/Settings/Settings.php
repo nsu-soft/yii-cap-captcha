@@ -13,7 +13,7 @@ class Settings extends AbstractApi
      */
     public function sessions(): array
     {
-        $uri = $this->factory->createUri("{$this->getBaseUri()}/server/settings/sessions");
+        $uri = $this->factory->createUri("{$this->endpoint}/server/settings/sessions");
         
         $request = $this->factory->createRequest('GET', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());

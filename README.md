@@ -102,15 +102,18 @@ Add your Cap Captcha server details to your application configuration:
         'captcha' => [
             'class' => NsuSoft\Captcha\Cap::class,
 
-            'server' => 'http://localhost',   // Base URL of the Cap server
-            'port' => 3000,                   // Server port (default: 3000)
+            // Deprecated. Will be removed in version 2.0
+            // 'server' => 'http://localhost',   // Base URL of the Cap server
+            // 'port' => 3000,                   // Server port (default: 3000)
+
+            'endpoint' => 'http://localhost:3000', // Base URL of the Cap server
             
             // Site credentials (provided during site registration)
-            'siteKey' => 'your-site-key',     // Public site identifier
-            'secretKey' => 'your-secret-key', // Private key for client request validation
+            'siteKey' => 'your-site-key',          // Public site identifier
+            'secretKey' => 'your-secret-key',      // Private key for client request validation
 
             // Optional: API key for administrative operations
-            'apiKey' => '',                   // Leave empty if not managing keys programmatically
+            'apiKey' => '',                        // Leave empty if not managing keys programmatically
         ],
     ],
 ```

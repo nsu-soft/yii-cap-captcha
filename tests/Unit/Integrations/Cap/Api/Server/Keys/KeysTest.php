@@ -24,8 +24,7 @@ class KeysTest extends \Codeception\Test\Unit
         $config = Generator::getCaptchaCredentials();
 
         $this->api = new Keys([
-            'server' => $config['server'],
-            'port' => $config['port'],
+            'endpoint' => $config['endpoint'],
             'apiKey' => $config['apiKey'],
             'factory' => new HttpFactory(),
             'client' => new Client(),

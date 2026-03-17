@@ -16,12 +16,7 @@ abstract class AbstractApi extends Component
     /**
      * @var string URL of Cap Captcha server.
      */
-    public string $server;
-
-    /**
-     * @var int|null Port of Cap Captcha server.
-     */
-    public ?int $port = null;
+    public string $endpoint;
 
     /**
      * @var string|null API key.
@@ -56,19 +51,6 @@ abstract class AbstractApi extends Component
     public function setClient(ClientInterface $client): void
     {
         $this->client = $client;
-    }
-
-    /**
-     * Gets base URI of Cap server.
-     * @return string
-     */
-    protected function getBaseUri(): string
-    {
-        if (is_null($this->port)) {
-            return $this->server;
-        }
-
-        return "{$this->server}:{$this->port}";
     }
 
     /**
