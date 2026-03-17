@@ -2,7 +2,6 @@
 
 namespace NsuSoft\Captcha\Integrations\Cap\Api;
 
-use NsuSoft\Captcha\Models\Host;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -17,12 +16,7 @@ abstract class AbstractApi extends Component
     /**
      * @var string URL of Cap Captcha server.
      */
-    public string $server;
-
-    /**
-     * @var int|null Port of Cap Captcha server.
-     */
-    public ?int $port = null;
+    public string $endpoint;
 
     /**
      * @var string|null API key.
@@ -57,20 +51,6 @@ abstract class AbstractApi extends Component
     public function setClient(ClientInterface $client): void
     {
         $this->client = $client;
-    }
-
-    /**
-     * Gets base URI of Cap server.
-     * @return string
-     */
-    protected function getBaseUri(): string
-    {
-        $host = new Host([
-            'server' => $this->server,
-            'port' => $this->port,
-        ]);
-
-        return $host->getBaseUri();
     }
 
     /**

@@ -10,21 +10,21 @@ use yii\base\Component;
 class Cap extends Component
 {
     /**
-     * @var string URL of Cap Captcha server.
-     * TODO: specify host with port in one property
+     * @var string URI of Cap Captcha server.
+     * @deprecated Will be removed in version `2.0`. Use `endpoint` property instead of this.
      */
     public string $server = 'http://localhost';
 
     /**
      * @var int|null Port of Cap Captcha server.
-     * TODO: specify host with port in one property
+     * @deprecated Will be removed in version `2.0`. Use `endpoint` property instead of this.
      */
     public ?int $port = 3000;
 
     /**
-     * @var string URL of Cap Captcha server.
+     * @var string URI of Cap Captcha server.
      */
-    // public string $endpoint = '';
+    public ?string $endpoint = null;
 
     /**
      * @var string|null Site key.
@@ -51,7 +51,26 @@ class Cap extends Component
      */
     public function init(): void
     {
+        $this->initEndpoint();
         $this->initApi();
+    }
+
+    /**
+     * Initialize URI of Cap Captcha server.
+     * @return void
+     */
+    private function initEndpoint(): void
+    {
+        if (is_null($this->endpoint)) {
+            $host = new Host([
+                'server' => $this->server,
+                'port' => $this->port,
+            ]);
+
+            $this->endpoint = $host->getBaseUri();
+        }
+
+        $this->endpoint = rtrim($this->endpoint, '/');
     }
 
     /**
@@ -61,8 +80,7 @@ class Cap extends Component
     private function initApi(): void
     {
         $builder = new ApiBuilder([
-            'server' => $this->server,
-            'port' => $this->port,
+            'endpoint' => $this->endpoint,
             'apiKey' => $this->apiKey,
         ]);
 
@@ -77,20 +95,6 @@ class Cap extends Component
     public function setApi(stdClass $api): void
     {
         $this->api = $api;
-    }
-
-    /**
-     * Gets API base URI to use in CapWidget.
-     * @return string
-     */
-    public function getEndpoint(): string
-    {
-        $host = new Host([
-            'server' => $this->server,
-            'port' => $this->port,
-        ]);
-
-        return $host->getBaseUri();
     }
 
     /**

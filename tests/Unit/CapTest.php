@@ -37,9 +37,13 @@ class CapTest extends \Codeception\Test\Unit
         $this->component->setApi($this->getApi());
     }
 
-    public function testGetEndpoint()
+    public function testInitEndpoint()
     {
-        $this->markTestIncomplete();
+        $config = Generator::getConfig();
+        $config['endpoint'] .= '/';
+        $component = Yii::createObject($config);
+
+        $this->assertNotEquals('/', substr($component->endpoint, -1));
     }
 
     public function testChallenge()
@@ -140,7 +144,7 @@ class CapTest extends \Codeception\Test\Unit
 
     protected function getApi(): stdClass
     {
-        $builder = new ApiBuilder(['server' => '']);
+        $builder = new ApiBuilder(['endpoint' => '']);
         $api = $builder->build();
 
         $api->main = $this->make(Main::class, [

@@ -16,12 +16,7 @@ class ApiBuilder extends Component
     /**
      * @var string URL of Cap Captcha server.
      */
-    public string $server;
-
-    /**
-     * @var int|null Port of Cap Captcha server.
-     */
-    public ?int $port = null;
+    public string $endpoint;
 
     /**
      * @var string|null API key.
@@ -57,14 +52,10 @@ class ApiBuilder extends Component
     private function getConfig(): array
     {
         $config = [
-            'server' => $this->server,
+            'endpoint' => $this->endpoint,
             'factory' => PsrFactory::createFactory(),
             'client' => PsrFactory::createClient(),
         ];
-
-        if (isset($this->port)) {
-            $config['port'] = $this->port;
-        }
 
         if (isset($this->apiKey)) {
             $config['apiKey'] = $this->apiKey;

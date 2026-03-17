@@ -4,8 +4,7 @@
  * Make copy of this file to `captcha.php` and specify credentials.
  */
 return [
-    'server' => '',
-    'port' => '',
+    'endpoint' => '',
     'siteKey' => '',
     'secretKey' => '',
     'apiKey' => '',

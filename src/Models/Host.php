@@ -17,6 +17,23 @@ class Host extends Component
     public ?int $port = null;
 
     /**
+     * @inheritDoc
+     */
+    public function init(): void
+    {
+        $this->initServer();
+    }
+
+    /**
+     * Initialize server URI.
+     * @return void
+     */
+    public function initServer(): void
+    {
+        $this->server = rtrim($this->server, '/');
+    }
+
+    /**
      * Gets base URI of host.
      * @return string
      */
