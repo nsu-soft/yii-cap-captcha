@@ -9,15 +9,9 @@ use yii\base\Component;
 class Cap extends Component
 {
     /**
-     * @var string URI of Cap Captcha server.
-     * @deprecated Use `baseUri` property instead of this. Will be removed in version 3.0.
+     * @var string Base URI of Cap Captcha server.
      */
-    public string $endpoint = 'http://localhost:3000';
-
-    /**
-     * @var string|null Base URI of Cap Captcha server.
-     */
-    public ?string $baseUri = null;
+    public string $baseUri = 'http://localhost:3000';
 
     /**
      * @var string|null Site key.
@@ -44,18 +38,8 @@ class Cap extends Component
      */
     public function init(): void
     {
-        $this->initEndpoint();
         $this->initBaseUri();
         $this->initApi();
-    }
-
-    /**
-     * Initialize URI of Cap Captcha server.
-     * @return void
-     */
-    private function initEndpoint(): void
-    {
-        $this->endpoint = rtrim($this->endpoint, '/');
     }
 
     /**
@@ -64,10 +48,6 @@ class Cap extends Component
      */
     private function initBaseUri(): void
     {
-        if (is_null($this->baseUri)) {
-            $this->baseUri = $this->endpoint;
-        }
-
         $this->baseUri = rtrim($this->baseUri, '/');
     }
 
