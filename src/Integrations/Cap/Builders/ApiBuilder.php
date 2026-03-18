@@ -14,9 +14,9 @@ use yii\base\Component;
 class ApiBuilder extends Component
 {
     /**
-     * @var string URL of Cap Captcha server.
+     * @var string Base URI of Cap Captcha server.
      */
-    public string $endpoint;
+    public string $baseUri;
 
     /**
      * @var string|null API key.
@@ -52,7 +52,7 @@ class ApiBuilder extends Component
     private function getConfig(): array
     {
         $config = [
-            'endpoint' => $this->endpoint,
+            'baseUri' => $this->baseUri,
             'factory' => PsrFactory::createFactory(),
             'client' => PsrFactory::createClient(),
         ];

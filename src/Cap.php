@@ -10,8 +10,14 @@ class Cap extends Component
 {
     /**
      * @var string URI of Cap Captcha server.
+     * @deprecated Use `baseUri` property instead of this. Will be removed in version 3.0.
      */
     public string $endpoint = 'http://localhost:3000';
+
+    /**
+     * @var string|null Base URI of Cap Captcha server.
+     */
+    public ?string $baseUri = null;
 
     /**
      * @var string|null Site key.
@@ -39,6 +45,7 @@ class Cap extends Component
     public function init(): void
     {
         $this->initEndpoint();
+        $this->initBaseUri();
         $this->initApi();
     }
 
@@ -52,17 +59,43 @@ class Cap extends Component
     }
 
     /**
+     * Initialize base URI of Cap Captcha server.
+     * @return void
+     */
+    private function initBaseUri(): void
+    {
+        if (is_null($this->baseUri)) {
+            $this->baseUri = $this->endpoint;
+        }
+
+        $this->baseUri = rtrim($this->baseUri, '/');
+    }
+
+    /**
      * Initialize API object.
      * @return void
      */
     private function initApi(): void
     {
         $builder = new ApiBuilder([
-            'endpoint' => $this->endpoint,
+            'baseUri' => $this->baseUri,
             'apiKey' => $this->apiKey,
         ]);
 
         $this->setApi($builder->build());
+    }
+
+    /**
+     * Gets endpoint property for NsuSoft\Captcha\CapWidget.
+     * @return string
+     */
+    public function getEndpoint(): string
+    {
+        if (is_null($this->siteKey)) {
+            return $this->baseUri;
+        }
+
+        return "{$this->baseUri}/{$this->siteKey}";
     }
 
     /**

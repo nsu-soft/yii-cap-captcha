@@ -15,7 +15,7 @@ class Server extends AbstractApi
      */
     public function about(): stdClass
     {
-        $uri = $this->factory->createUri("{$this->endpoint}/server/about");
+        $uri = $this->factory->createUri("{$this->baseUri}/server/about");
         
         $request = $this->factory->createRequest('GET', $uri)
             ->withHeader('Authorization', $this->getAuthorizationHeader());
@@ -32,7 +32,7 @@ class Server extends AbstractApi
      */
     public function logout(string $session): null
     {
-        $uri = $this->factory->createUri("{$this->endpoint}/server/logout");
+        $uri = $this->factory->createUri("{$this->baseUri}/server/logout");
         $stream = $this->factory->createStream(Json::encode(['session' => $session]));
         
         $request = $this->factory->createRequest('POST', $uri)

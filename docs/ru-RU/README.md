@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
-[![Status](https://img.shields.io/badge/stable-2.0-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
+[![Status](https://img.shields.io/badge/stable-2.1-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
 ---
 
@@ -101,14 +101,17 @@ composer require guzzlehttp/guzzle
         'captcha' => [
             'class' => NsuSoft\Captcha\Cap::class,
 
-            'endpoint' => 'http://localhost:3000', // Базовый URL сервера Cap Captcha
+            // Устарело. Будет удалено в версии 3.0
+            // 'endpoint' => 'http://localhost:3000', // Базовый URI сервера Cap Captcha
+
+            'baseUri' => 'http://localhost:3000', // Базовый URI сервера Cap Captcha
             
             // Учетные данные сайта (предоставляются при регистрации сайта)
-            'siteKey' => 'your-site-key',          // Публичный идентификатор сайта
-            'secretKey' => 'your-secret-key',      // Приватный ключ для проверки клиентских запросов
+            'siteKey' => 'your-site-key',         // Публичный идентификатор сайта
+            'secretKey' => 'your-secret-key',     // Приватный ключ для проверки клиентских запросов
 
             // Опционально: API-ключ для операций администрирования
-            'apiKey' => '',                        // Оставьте пустым, если не управляете ключами программно
+            'apiKey' => '',                       // Оставьте пустым, если не управляете ключами программно
         ],
     ],
 ```
@@ -132,6 +135,7 @@ JSON-схемы находятся в директории `tests/Support/Data/C
 
 | Метод | Описание | Параметры | Возвращаемые значения |
 |-------|----------|-----------|------------|
+| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API энд-пойнт в формате `http://<your-instance>/<site-key>` |
 | `siteVerify(string $response)` | Альтернативная конечная точка проверки (в стиле reCAPTCHA) | `$response`: токен из эндпоинта `/{siteKey}/redeem` | См. JSON-схему в `Main/siteverify.200.json` |
 | `getAbout()` | Получает метаданные сервера | — | См. JSON-схему в `Server/about.200.json` |
 | `logout(string $session)` | Завершает указанную сессию | `$session` | `null` |

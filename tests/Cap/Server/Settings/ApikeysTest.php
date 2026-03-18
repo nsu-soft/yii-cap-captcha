@@ -27,7 +27,7 @@ class ApikeysTest extends \Codeception\Test\Unit
         ];
 
         $this->client = new Client([
-            'base_uri' => $config['endpoint'],
+            'base_uri' => $config['baseUri'],
         ]);
     }
 

@@ -18,7 +18,7 @@ class ApiBuilderTest extends \Codeception\Test\Unit
         $config = Generator::getCaptchaCredentials();
 
         $this->builder = new ApiBuilder([
-            'endpoint' => $config['endpoint'],
+            'baseUri' => $config['baseUri'],
             'apiKey' => $config['apiKey'],
         ]);
     }
