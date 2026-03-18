@@ -15,7 +15,7 @@ class Main extends AbstractApi
      */
     public function challenge(string $siteKey): stdClass
     {
-        $uri = $this->factory->createUri("{$this->endpoint}/{$siteKey}/challenge");
+        $uri = $this->factory->createUri("{$this->baseUri}/{$siteKey}/challenge");
         
         $request = $this->factory->createRequest('POST', $uri);
         $response = $this->client->sendRequest($request);
@@ -31,7 +31,7 @@ class Main extends AbstractApi
      */
     public function redeem(string $siteKey, array $data): stdClass
     {
-        $uri = $this->factory->createUri("{$this->endpoint}/{$siteKey}/redeem");
+        $uri = $this->factory->createUri("{$this->baseUri}/{$siteKey}/redeem");
         $stream = $this->factory->createStream(Json::encode($data));
         
         $request = $this->factory->createRequest('POST', $uri)
@@ -51,7 +51,7 @@ class Main extends AbstractApi
      */
     public function siteverify(string $siteKey, array $data): stdClass
     {
-        $uri = $this->factory->createUri("{$this->endpoint}/{$siteKey}/siteverify");
+        $uri = $this->factory->createUri("{$this->baseUri}/{$siteKey}/siteverify");
         $stream = $this->factory->createStream(Json::encode($data));
         
         $request = $this->factory->createRequest('POST', $uri)

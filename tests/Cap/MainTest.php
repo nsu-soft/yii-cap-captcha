@@ -23,7 +23,7 @@ class MainTest extends \Codeception\Test\Unit
         $this->config = Generator::getCaptchaCredentials();
 
         $this->client = new Client([
-            'base_uri' => $this->config['endpoint'],
+            'base_uri' => $this->config['baseUri'],
         ]);
     }
 

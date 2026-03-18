@@ -23,7 +23,7 @@ class ServerTest extends \Codeception\Test\Unit
         $config = Generator::getCaptchaCredentials();
 
         $this->api = new Server([
-            'endpoint' => $config['endpoint'],
+            'baseUri' => $config['baseUri'],
             'apiKey' => $config['apiKey'],
             'factory' => new HttpFactory(),
             'client' => new Client(),

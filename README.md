@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
-[![Status](https://img.shields.io/badge/stable-2.0-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
+[![Status](https://img.shields.io/badge/stable-2.1-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
 ---
 
@@ -102,7 +102,10 @@ Add your Cap Captcha server details to your application configuration:
         'captcha' => [
             'class' => NsuSoft\Captcha\Cap::class,
 
-            'endpoint' => 'http://localhost:3000', // Base URL of the Cap server
+            // Deprecated. Will be removed in version 3.0
+            // 'endpoint' => 'http://localhost:3000', // Base URI of the Cap server
+
+            'baseUri' => 'http://localhost:3000', // Base URI of the Cap server
             
             // Site credentials (provided during site registration)
             'siteKey' => 'your-site-key',          // Public site identifier
@@ -132,6 +135,7 @@ JSON schemas are located in `tests/Support/Data/Cap` directory.
 
 | Method | Description | Parameters | Returns |
 |--------|-------------|------------|---------|
+| `getEndpoint()` | Gets `endpoint` property for `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API endpoint like `http://<your-instance>/<site-key>` |
 | `siteVerify(string $response)` | Alternative validation endpoint (reCAPTCHA-style flow) | `$response'`: token from `/{siteKey}/redeem` endpoint | See JSON schema in `Main/siteverify.200.json` |
 | `getAbout()` | Retrieves server metadata | — | See JSON schema in `Server/about.200.json` |
 | `logout(string $session)` | Logout specified session | `$session` | `null` |

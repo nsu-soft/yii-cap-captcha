@@ -6,7 +6,7 @@ $captcha = require __DIR__ . '/captcha.php';
 
 return [
     'class' => Cap::class,
-    'endpoint' => $captcha['endpoint'],
+    'baseUri' => $captcha['baseUri'],
     'siteKey' => $captcha['siteKey'],
     'secretKey' => $captcha['secretKey'],
     'apiKey' => $captcha['apiKey'],
