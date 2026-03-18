@@ -7,7 +7,7 @@
         "captcha",
         "security"
     ],
-    "version": "2.1",
+    "version": "3.0",
     "type": "library",
     "license": "BSD-3-Clause",
     "support": {
