@@ -15,5 +15,12 @@ return [
         'captcha' => ArrayHelper::merge($captcha, [
             'class' => Cap::class,
         ]),
+        'urlManager' => [
+            'showScriptName' => true,
+        ],
+        'request' => [
+            'cookieValidationKey' => 'test',
+            'enableCsrfValidation' => false,
+        ],
     ],
 ];
