@@ -184,6 +184,11 @@ class MyController extends Controller
                 // По умолчанию: 'cap-token'
                 'hiddenFieldName' => 'cap-token',
 
+                // Необязательный. Названия HTTP-заголовков, когда пропускается проверка токена.
+                // Проверка токена выполняется только для небезопасных методов.
+                // По умолчанию: ['GET', 'HEAD', 'OPTIONS']
+                'safeMethods' => ['GET', 'HEAD', 'OPTIONS'],
+
                 // Необязательный.
                 // @see ActionFilter::$only
                 'only' => [],

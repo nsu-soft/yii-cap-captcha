@@ -183,6 +183,11 @@ class MyController extends Controller
                 // Default: 'cap-token'
                 'hiddenFieldName' => 'cap-token',
 
+                // Optional. The name of the HTTP header for skipping token validation.
+                // By default validate token on non-"safe" methods only.
+                // Default: ['GET', 'HEAD', 'OPTIONS']
+                'safeMethods' => ['GET', 'HEAD', 'OPTIONS'],
+
                 // Optional.
                 // @see ActionFilter::$only
                 'only' => [],
