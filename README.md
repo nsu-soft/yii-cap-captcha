@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
-[![Status](https://img.shields.io/badge/stable-3.0-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
+[![Status](https://img.shields.io/badge/stable-3.1-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
 ---
 
@@ -133,7 +133,9 @@ JSON schemas are located in `tests/Support/Data/Cap` directory.
 | Method | Description | Parameters | Returns |
 |--------|-------------|------------|---------|
 | `getEndpoint()` | Gets `endpoint` property for `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API endpoint like `http://<your-instance>/<site-key>` |
-| `siteVerify(string $response)` | Alternative validation endpoint (reCAPTCHA-style flow) | `$response'`: token from `/{siteKey}/redeem` endpoint | See JSON schema in `Main/siteverify.200.json` |
+| `challenge()` | Gets CAPTCHA challenge | — | See JSON schema in `Main/challenge.200.json` |
+| `redeem(string $token, array $solutions)` | Redeem a solution to token | `$token`: token from `/{siteKey}/challenge` endpoint, `$solutions`: CAPTCHA solutions | See JSON schema in `Main/redeem.200.json` |
+| `siteVerify(string $response)` | Validation endpoint | `$response'`: token from `/{siteKey}/redeem` endpoint | See JSON schema in `Main/siteverify.200.json` |
 | `getAbout()` | Retrieves server metadata | — | See JSON schema in `Server/about.200.json` |
 | `logout(string $session)` | Logout specified session | `$session` | `null` |
 | `getKeys()` | Gets all sites keys | — | See JSON schema in `Server/Keys/index.200.json` |
@@ -148,7 +150,61 @@ JSON schemas are located in `tests/Support/Data/Cap` directory.
 | `deleteLastApiKey(string $name)` | Deletes a last added API key by it name | `$name` | See JSON schema in `Server/Settings/apikeys.delete.200.json` |
 | `getSessions()` | Gets all sessions tokens | — | See JSON schema in `Server/Settings/sessions.200.json` |
 
-### Example: Validating User Response
+### Example: Validating User Response in Controller
+
+```php
+<?php
+
+use NsuSoft\Captcha\Filters\CapFilter;
+use yii\web\Controller;
+
+class MyController extends Controller
+{
+    /**
+     * @inheritDoc
+     */
+    public function behaviors(): array
+    {
+        return [
+            'captcha' => [
+                'class' => CapFilter::class,
+
+                // Optional. The user-provided captcha token to be validated. If `null`, 
+                // the token will be retrieved from the [[hiddenFieldName]] POST field.
+                // Default: `null`
+                'clientSuppliedToken' => null,
+
+                // Optional. Cap component name in application.
+                // Default: 'captcha'
+                'componentName' => 'captcha',
+
+                // Optional. Cap Captcha hidden field name, where cap token was saved,
+                // when captcha was solved.
+                // Default: 'cap-token'
+                'hiddenFieldName' => 'cap-token',
+
+                // Optional.
+                // @see ActionFilter::$only
+                'only' => [],
+
+                // Optional.
+                // @see ActionFilter::$except
+                'except' => [],
+            ],
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function actionIndex(): string
+    {
+        // Other logic after CAPTCHA validation...
+    }
+}
+```
+
+### Example: Validating User Response manually
 
 ```php
 use NsuSoft\Captcha\Exceptions\JsonDecodeException;
@@ -292,11 +348,13 @@ yii-cap-captcha/
 ├── config/
 │   ├── captcha.dist.php        # Configuration template
 │   └── test.php                # Test environment config
+├── controllers/                # Controllers for testing
 ├── src/
 │   ├── Cap.php                 # Main component class
 │   ├── Adapters/               # HTTP client adapters (PSR-18)
 │   ├── Exceptions/             # Exceptions
 │   ├── Factories/              # Object factories
+│   ├── Filters/                # Filters for using in controllers
 │   └── Integrations/Cap/       # Cap API endpoint integrations
 ├── tests/
 │   ├── Unit/                   # Unit tests
