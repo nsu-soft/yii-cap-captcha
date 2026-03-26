@@ -365,6 +365,7 @@ yii-cap-captcha/
 │   ├── Unit/                   # Unit tests
 │   ├── Functional/             # Integration tests
 │   └── Support/                # Test helpers and fixtures
+├── views/                      # Views for testing
 ├── composer.json               # Dependencies, autoloading, scripts
 ├── docker-compose.yml          # Docker orchestration for dev/test
 ├── codeception.yml             # Codeception test runner config
