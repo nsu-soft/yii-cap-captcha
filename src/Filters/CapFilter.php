@@ -9,6 +9,9 @@ use Yii;
 use yii\base\ActionFilter;
 use yii\base\InvalidConfigException;
 
+/**
+ * @property-write Cap $cap
+ */
 class CapFilter extends ActionFilter
 {
     /**
@@ -18,7 +21,7 @@ class CapFilter extends ActionFilter
     public ?string $clientSuppliedToken = null;
 
     /**
-     * @var string Cap component name.
+     * @var string Cap component name in application.
      */
     public string $componentName = 'captcha';
 

@@ -132,8 +132,10 @@ JSON-схемы находятся в директории `tests/Support/Data/C
 
 | Метод | Описание | Параметры | Возвращаемые значения |
 |-------|----------|-----------|------------|
-| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API энд-пойнт в формате `http://<your-instance>/<site-key>` |
-| `siteVerify(string $response)` | Альтернативная конечная точка проверки (в стиле reCAPTCHA) | `$response`: токен из эндпоинта `/{siteKey}/redeem` | См. JSON-схему в `Main/siteverify.200.json` |
+| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API эндпоинт в формате `http://<your-instance>/<site-key>` |
+| `challenge()` | Получить задание CAPTCHA | — | См. JSON-схему в `Main/challenge.200.json` |
+| `redeem(string $token, array $solutions)` | Обменять решение капчи на токен | `$token`: токен, получаемый с эндпоинта `/{siteKey}/challenge`, `$solutions`: решения капчи | См. JSON-схему в `Main/redeem.200.json` |
+| `siteVerify(string $response)` | Проверка токена капчи | `$response`: токен из эндпоинта `/{siteKey}/redeem` | См. JSON-схему в `Main/siteverify.200.json` |
 | `getAbout()` | Получает метаданные сервера | — | См. JSON-схему в `Server/about.200.json` |
 | `logout(string $session)` | Завершает указанную сессию | `$session` | `null` |
 | `getKeys()` | Получает все ключи сайтов | — | См. JSON-схему в `Server/Keys/index.200.json` |
@@ -148,7 +150,62 @@ JSON-схемы находятся в директории `tests/Support/Data/C
 | `deleteLastApiKey(string $name)` | Удаляет последний добавленный API-ключ по его имени | `$name` | См. JSON-схему в `Server/Settings/apikeys.delete.200.json` |
 | `getSessions()` | Получает токены всех сессий | — | См. JSON-схему в `Server/Settings/sessions.200.json` |
 
-### Пример: Проверка ответа пользователя
+### Пример: Проверка ответа пользователя в контроллере
+
+```php
+<?php
+
+use NsuSoft\Captcha\Filters\CapFilter;
+use yii\web\Controller;
+
+class MyController extends Controller
+{
+    /**
+     * @inheritDoc
+     */
+    public function behaviors(): array
+    {
+        return [
+            'captcha' => [
+                'class' => CapFilter::class,
+
+                // Необязательный. Проверяемый токен капчи, предоставленный пользователем.
+                // Если значение равно `null`, токен будет получен из поля [[hiddenFieldName]]
+                // в запросе POST.
+                // По умолчанию: `null`
+                'clientSuppliedToken' => null,
+
+                // Необязательный. Имя компонента Cap в приложении.
+                // По умолчанию: 'captcha'
+                'componentName' => 'captcha',
+
+                // Необязательный. Имя скрытого поля Cap Captcha, в котором сохраняется токен
+                // капчи после ее разгадывания.
+                // По умолчанию: 'cap-token'
+                'hiddenFieldName' => 'cap-token',
+
+                // Необязательный.
+                // @see ActionFilter::$only
+                'only' => [],
+
+                // Необязательный.
+                // @see ActionFilter::$except
+                'except' => [],
+            ],
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function actionIndex(): string
+    {
+        // Другая логика после проверки капчи...
+    }
+}
+```
+
+### Пример: Проверка ответа пользователя вручную
 
 ```php
 use NsuSoft\Captcha\Exceptions\JsonDecodeException;
@@ -292,12 +349,14 @@ yii-cap-captcha/
 ├── config/
 │   ├── captcha.dist.php        # Шаблон конфигурации
 │   └── test.php                # Конфигурация тестовой среды
+├── controllers/                # Контроллеры для тестирования
 ├── src/
 │   ├── Cap.php                 # Основной класс компонента
 │   ├── Adapters/               # Адаптеры HTTP-клиентов (PSR-18)
 │   ├── Exceptions/             # Исключения
 │   ├── Factories/              # Фабрики объектов
-│   └── Integrations/Cap/       # Интеграция с эндпоинтами Cap API
+│   ├── Filters/                # Фильтры для использования в контроллерах
+│   └── Integrations/Cap/       # Интеграция с энд-пойнтами Cap API
 ├── tests/
 │   ├── Unit/                   # Юнит-тесты
 │   ├── Functional/             # Интеграционные тесты
