@@ -8,6 +8,7 @@ use Psr\Http\Client\RequestExceptionInterface;
 use Yii;
 use yii\base\ActionFilter;
 use yii\base\InvalidConfigException;
+use yii\web\Request;
 
 /**
  * @property-write Cap $cap
@@ -30,6 +31,12 @@ class CapFilter extends ActionFilter
      * when captcha was solved.
      */
     public string $hiddenFieldName = 'cap-token';
+
+    /**
+     * @var array The name of the HTTP header for skipping token validation.
+     * By default validate token on non-"safe" methods only.
+     */
+    public array $safeMethods = ['GET', 'HEAD', 'OPTIONS'];
 
     /**
      * @var Cap|null Cap component instance.
@@ -75,6 +82,12 @@ class CapFilter extends ActionFilter
      */
     public function beforeAction($action): bool
     {
+        $method = $this->getRequest()->getMethod();
+
+        if (in_array($method, $this->safeMethods, true)) {
+            return true;
+        }
+
         $token = $this->getToken();
 
         if (is_null($token)) {
@@ -82,6 +95,15 @@ class CapFilter extends ActionFilter
         }
         
         return $this->validateToken($token);
+    }
+
+    /**
+     * Gets Request object from the owning Controller.
+     * @return Request
+     */
+    private function getRequest(): Request
+    {
+        return $this->owner->request;
     }
 
     /**
@@ -95,7 +117,7 @@ class CapFilter extends ActionFilter
             return $this->clientSuppliedToken;
         }
 
-        return $this->owner->request->getBodyParam($this->hiddenFieldName);
+        return $this->getRequest()->getBodyParam($this->hiddenFieldName);
     }
 
     /**

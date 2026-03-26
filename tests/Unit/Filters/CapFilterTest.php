@@ -20,6 +20,19 @@ class CapFilterTest extends \Codeception\Test\Unit
     {
     }
 
+    public function testSkipValidation()
+    {
+        $component = $this->makeSucceedStub();
+
+        $filter = new CapFilter([
+            'cap' => $component,
+        ]);
+
+        $filter->owner = $this->makeControllerStub(null, 'GET');
+
+        $this->assertTrue($filter->beforeAction(self::ACTION));
+    }
+
     public function testSucceedValidation()
     {
         $component = $this->makeSucceedStub();
@@ -28,7 +41,7 @@ class CapFilterTest extends \Codeception\Test\Unit
             'cap' => $component,
         ]);
 
-        $filter->owner = $this->makeControllerStub(self::TOKEN);
+        $filter->owner = $this->makeControllerStub(self::TOKEN, 'POST');
 
         $this->assertTrue($filter->beforeAction(self::ACTION));
     }
@@ -41,7 +54,7 @@ class CapFilterTest extends \Codeception\Test\Unit
             'cap' => $component,
         ]);
 
-        $filter->owner = $this->makeControllerStub(self::TOKEN);
+        $filter->owner = $this->makeControllerStub(self::TOKEN, 'POST');
 
         $this->assertFalse($filter->beforeAction(self::ACTION));
     }
@@ -54,7 +67,7 @@ class CapFilterTest extends \Codeception\Test\Unit
             'cap' => $component,
         ]);
 
-        $filter->owner = $this->makeControllerStub(null);
+        $filter->owner = $this->makeControllerStub(null, 'POST');
 
         $this->assertFalse($filter->beforeAction(self::ACTION));
     }
@@ -67,6 +80,8 @@ class CapFilterTest extends \Codeception\Test\Unit
             'cap' => $component,
             'clientSuppliedToken' => self::TOKEN,
         ]);
+
+        $filter->owner = $this->makeControllerStub(null, 'POST');
 
         $this->assertTrue($filter->beforeAction(self::ACTION));
     }
@@ -85,10 +100,11 @@ class CapFilterTest extends \Codeception\Test\Unit
         ]);
     }
 
-    private function makeControllerStub(?string $token)
+    private function makeControllerStub(?string $token, string $method)
     {
         $request = $this->make(Request::class, [
             'getBodyParam' => $token,
+            'getMethod' => $method,
         ]);
 
         return $this->make(Controller::class, [

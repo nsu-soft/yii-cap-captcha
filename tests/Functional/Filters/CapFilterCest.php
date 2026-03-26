@@ -12,9 +12,16 @@ final class CapFilterCest
     {
     }
 
-    public function tryToTest(FunctionalTester $I): void
+    public function tryGetRequest(FunctionalTester $I): void
     {
         $I->amOnPage('index-test.php?r=test/index');
-        $I->dontSee('index');
+        $I->see('index');
+    }
+
+    public function tryPostRequest(FunctionalTester $I): void
+    {
+        $I->amOnPage('index-test.php?r=test/form');
+        $I->submitForm('#text-form', ['text' => 'text']);
+        $I->dontSee('submited');
     }
 }
