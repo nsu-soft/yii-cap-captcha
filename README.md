@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
-[![Status](https://img.shields.io/badge/stable-3.1.1-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
+[![Status](https://img.shields.io/badge/stable-3.2-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
 ---
 
