@@ -102,6 +102,13 @@ composer require guzzlehttp/guzzle
             'class' => NsuSoft\Captcha\Cap::class,
 
             'baseUri' => 'http://localhost:3000', // Базовый URI сервера Cap Captcha
+
+            // Если базовый URI со стороны сервера и клиента различаются,
+            // их можно указать отдельно
+            // 'baseUri' => [
+            //     'server' => 'http://cap:3000', // Для использования в Docker
+            //     'client' => 'http://localhost:3000', // Для использования в виджете
+            // ],
             
             // Учетные данные сайта (предоставляются при регистрации сайта)
             'siteKey' => 'your-site-key',         // Публичный идентификатор сайта
@@ -132,7 +139,7 @@ JSON-схемы находятся в директории `tests/Support/Data/C
 
 | Метод | Описание | Параметры | Возвращаемые значения |
 |-------|----------|-----------|------------|
-| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API эндпоинт в формате `http://<your-instance>/<site-key>` |
+| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API эндпоинт в формате `http://<your-client-instance>/<site-key>` |
 | `challenge()` | Получить задание CAPTCHA | — | См. JSON-схему в `Main/challenge.200.json` |
 | `redeem(string $token, array $solutions)` | Обменять решение капчи на токен | `$token`: токен, получаемый с эндпоинта `/{siteKey}/challenge`, `$solutions`: решения капчи | См. JSON-схему в `Main/redeem.200.json` |
 | `siteVerify(string $response)` | Проверка токена капчи | `$response`: токен из эндпоинта `/{siteKey}/redeem` | См. JSON-схему в `Main/siteverify.200.json` |

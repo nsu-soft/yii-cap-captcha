@@ -103,6 +103,13 @@ Add your Cap Captcha server details to your application configuration:
             'class' => NsuSoft\Captcha\Cap::class,
 
             'baseUri' => 'http://localhost:3000', // Base URI of the Cap server
+
+            // If base URI from server and client sides are different,
+            // you can specify it separately
+            // 'baseUri' => [
+            //     'server' => 'http://cap:3000', // To using in Docker
+            //     'client' => 'http://localhost:3000', // To using in widget
+            // ],
             
             // Site credentials (provided during site registration)
             'siteKey' => 'your-site-key',          // Public site identifier
@@ -132,7 +139,7 @@ JSON schemas are located in `tests/Support/Data/Cap` directory.
 
 | Method | Description | Parameters | Returns |
 |--------|-------------|------------|---------|
-| `getEndpoint()` | Gets `endpoint` property for `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API endpoint like `http://<your-instance>/<site-key>` |
+| `getEndpoint()` | Gets `endpoint` property for `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API endpoint like `http://<your-client-instance>/<site-key>` |
 | `challenge()` | Gets CAPTCHA challenge | — | See JSON schema in `Main/challenge.200.json` |
 | `redeem(string $token, array $solutions)` | Redeem a solution to token | `$token`: token from `/{siteKey}/challenge` endpoint, `$solutions`: CAPTCHA solutions | See JSON schema in `Main/redeem.200.json` |
 | `siteVerify(string $response)` | Validation endpoint | `$response'`: token from `/{siteKey}/redeem` endpoint | See JSON schema in `Main/siteverify.200.json` |
