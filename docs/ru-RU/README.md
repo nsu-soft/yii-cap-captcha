@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.3-8892BF.svg?logo=php)](https://php.net)
 [![Yii Version](https://img.shields.io/badge/yii-~2.0.50-E47B44.svg?logo=yii)](https://www.yiiframework.com)
-[![Status](https://img.shields.io/badge/stable-3.1.1-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
+[![Status](https://img.shields.io/badge/stable-3.2-blue.svg)](https://packagist.org/packages/nsu-soft/yii-cap-captcha)
 
 ---
 
@@ -102,6 +102,13 @@ composer require guzzlehttp/guzzle
             'class' => NsuSoft\Captcha\Cap::class,
 
             'baseUri' => 'http://localhost:3000', // Базовый URI сервера Cap Captcha
+
+            // Если базовый URI со стороны сервера и клиента различаются,
+            // их можно указать отдельно
+            // 'baseUri' => [
+            //     'server' => 'http://cap:3000', // Для использования в Docker
+            //     'client' => 'http://localhost:3000', // Для использования в виджете
+            // ],
             
             // Учетные данные сайта (предоставляются при регистрации сайта)
             'siteKey' => 'your-site-key',         // Публичный идентификатор сайта
@@ -132,7 +139,7 @@ JSON-схемы находятся в директории `tests/Support/Data/C
 
 | Метод | Описание | Параметры | Возвращаемые значения |
 |-------|----------|-----------|------------|
-| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API эндпоинт в формате `http://<your-instance>/<site-key>` |
+| `getEndpoint()` | Получить свойство `endpoint` для `NsuSoft\Captcha\CapWidget` | — | `string`. Cap Captcha API эндпоинт в формате `http://<your-client-instance>/<site-key>` |
 | `challenge()` | Получить задание CAPTCHA | — | См. JSON-схему в `Main/challenge.200.json` |
 | `redeem(string $token, array $solutions)` | Обменять решение капчи на токен | `$token`: токен, получаемый с эндпоинта `/{siteKey}/challenge`, `$solutions`: решения капчи | См. JSON-схему в `Main/redeem.200.json` |
 | `siteVerify(string $response)` | Проверка токена капчи | `$response`: токен из эндпоинта `/{siteKey}/redeem` | См. JSON-схему в `Main/siteverify.200.json` |
@@ -366,6 +373,7 @@ yii-cap-captcha/
 │   ├── Unit/                   # Юнит-тесты
 │   ├── Functional/             # Интеграционные тесты
 │   └── Support/                # Вспомогательные классы и фикстуры для тестов
+├── views/                      # Представления для тестирования
 ├── composer.json               # Зависимости, автозагрузка, скрипты
 ├── docker-compose.yml          # Оркестрация Docker для разработки/тестирования
 ├── codeception.yml             # Конфигурация запуска тестов Codeception

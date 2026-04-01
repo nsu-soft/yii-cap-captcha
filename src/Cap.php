@@ -5,13 +5,23 @@ namespace NsuSoft\Captcha;
 use NsuSoft\Captcha\Integrations\Cap\Builders\ApiBuilder;
 use stdClass;
 use yii\base\Component;
+use yii\base\InvalidArgumentException;
 
 class Cap extends Component
 {
     /**
-     * @var string Base URI of Cap Captcha server.
+     * @var array|string Base URI of Cap Captcha server.
+     * 
+     * If server and client URI are different, you can specify it separately. Format:
+     * 
+     * ```php
+     * [
+     *     'server' => 'http://cap:3000', // To using in Docker
+     *     'client' => 'http://localhost:3000', // To using in widget
+     * ]
+     * ```
      */
-    public string $baseUri = 'http://localhost:3000';
+    public array|string $baseUri = 'http://localhost:3000';
 
     /**
      * @var string|null Site key.
@@ -48,7 +58,21 @@ class Cap extends Component
      */
     private function initBaseUri(): void
     {
-        $this->baseUri = rtrim($this->baseUri, '/');
+        if (is_string($this->baseUri)) {
+            $this->baseUri = [
+                'server' => $this->baseUri,
+                'client' => $this->baseUri,
+            ];
+        }
+
+        if (!array_key_exists('server', $this->baseUri) || !array_key_exists('client', $this->baseUri)) {
+            throw new InvalidArgumentException("Incorrect 'baseUri' property format.");
+        }
+
+        $this->baseUri = [
+            'server' => rtrim($this->baseUri['server'], '/'),
+            'client' => rtrim($this->baseUri['client'], '/'),
+        ];
     }
 
     /**
@@ -58,7 +82,7 @@ class Cap extends Component
     private function initApi(): void
     {
         $builder = new ApiBuilder([
-            'baseUri' => $this->baseUri,
+            'baseUri' => $this->baseUri['server'],
             'apiKey' => $this->apiKey,
         ]);
 
@@ -72,10 +96,10 @@ class Cap extends Component
     public function getEndpoint(): string
     {
         if (is_null($this->siteKey)) {
-            return $this->baseUri;
+            return $this->baseUri['client'];
         }
 
-        return "{$this->baseUri}/{$this->siteKey}";
+        return "{$this->baseUri['client']}/{$this->siteKey}";
     }
 
     /**

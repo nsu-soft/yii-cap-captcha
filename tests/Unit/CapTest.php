@@ -14,6 +14,7 @@ use stdClass;
 use Tests\Support\Data\Config\Generator;
 use Tests\Support\UnitTester;
 use Yii;
+use yii\base\InvalidArgumentException;
 
 class CapTest extends \Codeception\Test\Unit
 {
@@ -37,13 +38,43 @@ class CapTest extends \Codeception\Test\Unit
         $this->component->setApi($this->getApi());
     }
 
-    public function testInitBaseUri()
+    public function testInitBaseUriAsString()
     {
         $config = Generator::getConfig();
         $config['baseUri'] .= '/';
         $component = Yii::createObject($config);
 
-        $this->assertNotEquals('/', substr($component->baseUri, -1));
+        $this->assertNotEquals('/', substr($component->baseUri['server'], -1));
+        $this->assertEquals($component->baseUri['client'], $component->baseUri['server']);
+    }
+
+    public function testInitBaseUriAsArray()
+    {
+        $config = Generator::getConfig();
+        
+        $config['baseUri'] = [
+            'server' => 'http://localhost/',
+            'client' => 'http://cap/',
+        ];
+
+        $component = Yii::createObject($config);
+
+        $this->assertNotEquals('/', substr($component->baseUri['server'], -1));
+        $this->assertNotEquals('/', substr($component->baseUri['client'], -1));
+        $this->assertNotEquals($component->baseUri['client'], $component->baseUri['server']);
+    }
+
+    public function testInitBaseUriAsArrayFailed()
+    {
+        $config = Generator::getConfig();
+        
+        $config['baseUri'] = [
+            'server' => 'http://localhost',
+        ];
+
+        $this->expectException(InvalidArgumentException::class);
+
+        Yii::createObject($config);
     }
 
     public function testGetEndpoint()
